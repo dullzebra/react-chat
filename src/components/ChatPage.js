@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Sidebar from './/Sidebar';
 import Chat from './Chat';
-import ChatHeader from './/ChatHeader';
+import ChatHeader from './ChatHeader';
 
 import { chats, messages } from '../mock-data.json'
 

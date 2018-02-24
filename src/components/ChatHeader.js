@@ -16,8 +16,8 @@ const styles = theme => ({
 const ChatHeader = ({ classes }) => (
   <AppBar className={classes.appBar}>
     <Toolbar>     
-      <Typography variant="title" color="inherit" noWrap>
-        Зверчат
+      <Typography variant="title" color="inherit" align="center" noWrap>
+        Чат зверчат
       </Typography>
     </Toolbar>
   </AppBar>
