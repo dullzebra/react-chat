@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import ChatAvatar from './ChatAvatar';
 
-const styles = theme => ({ 
+const styles = theme => ({
   messageItem: {
     marginBottom: theme.spacing.unit * 2,
     display: 'flex',
@@ -37,21 +37,19 @@ const styles = theme => ({
   }
 });
 
-class ChatMessage extends React.Component {
-  render() {
-    const { classes, data, index } = this.props;
-    const IsMessageFromMe = data.author === 'Me'
-    return (
-      <div className={classnames(classes.messageItem, IsMessageFromMe && classes.messageItemMe)} key={index}>
-        <ChatAvatar name={data.author} />
-        <Paper className={classnames(classes.messagePaper, IsMessageFromMe && classes.messagePaperMe)}>
-          <Typography variant="caption">{data.author}</Typography>
-          <Typography variant="body1">{data.message}</Typography>
-          <div className={classes.messageItem__date}>40 мин назад</div>
-        </Paper>
-      </div>
-    )
-  }
+const ChatMessage = ({ classes, author, message }) => {  
+  const IsMessageFromMe = author.toLowerCase() === 'me';
+
+  return (
+    <div className={classnames(classes.messageItem, IsMessageFromMe && classes.messageItemMe)}>
+      <ChatAvatar name={author} />
+      <Paper className={classnames(classes.messagePaper, IsMessageFromMe && classes.messagePaperMe)}>
+        <Typography variant="caption">{author}</Typography>
+        <Typography variant="body1">{message}</Typography>
+        <div className={classes.messageItem__date}>40 мин назад</div>
+      </Paper>
+    </div>
+  )
 }
 
 export default withStyles(styles)(ChatMessage);

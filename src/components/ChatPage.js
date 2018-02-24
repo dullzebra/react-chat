@@ -1,10 +1,10 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import Sidebar from './components/Sidebar';
-import Chat from './components/Chat';
-import ChatHeader from './components/ChatHeader';
+import Sidebar from './/Sidebar';
+import Chat from './Chat';
+import ChatHeader from './/ChatHeader';
 
-import { chats, messages } from './mock-data.json'
+import { chats, messages } from '../mock-data.json'
 
 const styles = theme => ({
   appFrame: {
@@ -16,7 +16,7 @@ const styles = theme => ({
   //drawerHeader: theme.mixins.toolbar,  
 });
 
-const App = ({ classes }) => (
+const ChatPage = ({ classes }) => (
   <div className={classes.appFrame}>
     <ChatHeader />
     <Sidebar chats={chats} />
@@ -24,4 +24,4 @@ const App = ({ classes }) => (
   </div>
 );    
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(ChatPage);

@@ -37,8 +37,7 @@ class Chat extends React.Component {
   }
 
   scrollDownHistory() {
-    const messagesContainer = this.refs.messagesContainer
-    console.log(messagesContainer)
+    const messagesContainer = this.refs.messagesContainer    
     if (messagesContainer) {
       messagesContainer.scrollTop = messagesContainer.scrollHeight
     }
@@ -51,7 +50,7 @@ class Chat extends React.Component {
       <main className={classes.content}>
         <div ref="messagesContainer" className={classes.messageContainer}>
           {messages && messages.map((item, index) =>
-            <ChatMessage data={item} index={index} />
+            <ChatMessage key={index} {...item} />
           )}
           {/* <div className={classes.infoItem}>
             Username присоединился

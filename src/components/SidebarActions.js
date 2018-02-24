@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const SidebarActions = ({ classes }) => (
-  <div>
+  <React.Fragment>
     <Button variant="fab" color="primary" className={classes.addChat} title="Создать новый чат">
       <AddIcon />
     </Button>
@@ -28,7 +28,7 @@ const SidebarActions = ({ classes }) => (
       <BottomNavigationAction label="Мои чаты" icon={<RestoreIcon />} />
       <BottomNavigationAction label="Все чаты" icon={<ExploreIcon />} />
     </BottomNavigation>
-  </div>
+  </React.Fragment>
 );
 
 export default withStyles(styles)(SidebarActions);
