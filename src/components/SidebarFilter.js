@@ -4,11 +4,14 @@ import TextField from 'material-ui/TextField';
 import * as style from '../utils/constants';
 
 const styles = theme => ({
-  searchField: {
-    marginLeft: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
-    width: 250,
-    height: style.appBarHeight - theme.spacing.unit * 2,
+  container: {
+    display: 'flex',    
+    alignItems: 'center',
+    height: style.appBarHeight,
+    padding: `0 ${theme.spacing.unit * 3}px` 
+  },
+  searchField: {           
+    flexGrow: 1
   },
 });
 

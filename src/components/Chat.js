@@ -6,19 +6,19 @@ import ChatInput from './ChatInput';
 
 const styles = theme => ({
   content: {
-    overflow: 'hidden',
-    width: '100%',
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      height: `calc(100% - ${style.appBarHeight}px)`,
-      marginTop: style.appBarHeight,
-    },
+    flexGrow: 1,
+    display: 'flex',      
+    marginTop: style.appBarHeight,
     backgroundColor: theme.palette.background.default,
   },
-  messageContainer: {
-    height: `100%`,
+  chatContainer: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',   
     overflow: 'auto'
+  },
+  messageList: {
+    flexBasis: '100%'
   },
   infoItem: {
     margin: '.2em',
@@ -48,16 +48,18 @@ class Chat extends React.Component {
 
     return (
       <main className={classes.content}>
-        <div ref="messagesContainer" className={classes.messageContainer}>
-          {messages && messages.map((item, index) =>
+        <div ref="messagesContainer" className={classes.chatContainer}>
+          <div className={classes.messageList}>
+           {messages && messages.map((item, index) =>
             <ChatMessage key={index} {...item} />
           )}
-          {/* <div className={classes.infoItem}>
+          {/*<div className={classes.infoItem}>
             Username присоединился
             <div>10 мин назад</div>
           </div>
           */}
-          <ChatInput />
+          </div>
+         <ChatInput /> 
         </div>
       </main>
     )

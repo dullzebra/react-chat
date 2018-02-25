@@ -7,13 +7,10 @@ import ChatHeader from './ChatHeader';
 import { chats, messages } from '../mock-data.json'
 
 const styles = theme => ({
-  appFrame: {
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
+  appFrame: {  
+    display: 'flex',  
     height: '100%',
-  }
-  //drawerHeader: theme.mixins.toolbar,  
+  }  
 });
 
 const ChatPage = ({ classes }) => (

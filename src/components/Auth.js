@@ -5,10 +5,11 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import * as style from '../utils/constants';
 
 const styles = theme => ({
   modalPaper: {
-    width: '33em',    
+    ...style.authWidth,    
     margin: theme.spacing.unit * 3 + 'px auto'
   },
 });

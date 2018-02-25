@@ -4,14 +4,14 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 
 const styles = theme => ({
-  inputPaper: {
+  inputPaper: {  
     position: 'sticky',
     bottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 3,
     margin: theme.spacing.unit * 3
   },
-  inputField: {
-    width: '100%'
+  inputField: {    
+    display: 'flex'
   }
 });
 

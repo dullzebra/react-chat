@@ -9,15 +9,14 @@ const styles = theme => ({
   appBar: {
     position: 'absolute',
     width: `calc(100% - ${style.drawerWidth}px)`,
-  }, 
+  }
 });
-
 
 const ChatHeader = ({ classes }) => (
   <AppBar className={classes.appBar}>
     <Toolbar>     
-      <Typography variant="title" color="inherit" align="center" noWrap>
-        Чат зверчат
+      <Typography variant="title" color="inherit" className={classes.title}>
+      Чат зверчат
       </Typography>
     </Toolbar>
   </AppBar>

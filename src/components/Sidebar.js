@@ -10,14 +10,12 @@ import SidebarActions from './SidebarActions';
 
 const styles = theme => ({
   drawerPaper: {
-    position: 'relative',
-    height: '100%',
+    position: 'relative',   
     width: style.drawerWidth,
     overflow: 'hidden'
   }, 
-  chatList: {
-    height: `calc(100% - ${style.appBarHeight + style.bottomPanelHeight}px)`,
-    overflow: 'auto'
+  chatList: {      
+    overflowX: 'hidden'
   }  
 });
 
