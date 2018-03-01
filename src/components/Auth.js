@@ -8,7 +8,7 @@ import SignupForm from './SignupForm';
 import * as style from '../utils/constants';
 
 const styles = theme => ({
-  modalPaper: {
+  authPaper: {
     ...style.authWidth,    
     margin: theme.spacing.unit * 3 + 'px auto'
   },
@@ -16,7 +16,7 @@ const styles = theme => ({
 
 class Auth extends React.Component {
   state = {
-    value: 'signup',
+    value: 'login',
   };
 
   handleChange = (event, value) => {
@@ -29,7 +29,7 @@ class Auth extends React.Component {
     const { value } = this.state;
 
     return (
-      <Paper className={classes.modalPaper} elevation={4}>
+      <Paper className={classes.authPaper} elevation={4}>
         <AppBar position="static" color="default">
           <Tabs
             value={value}

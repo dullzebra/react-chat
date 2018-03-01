@@ -9,19 +9,16 @@ const styles = theme => ({
     alignItems: 'center',
     height: style.appBarHeight,
     padding: `0 ${theme.spacing.unit * 3}px` 
-  },
-  searchField: {           
-    flexGrow: 1
-  },
+  }
 });
 
 const SidebarFilter = ({ classes }) => (
   <form className={classes.container} noValidate autoComplete="off">
   <TextField
+    fullWidth
     id="search"
     placeholder="Найти чат"
-    type="search"    
-    className={classes.searchField}
+    type="search"        
   />
 </form>
 );
