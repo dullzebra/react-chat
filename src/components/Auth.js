@@ -25,7 +25,7 @@ class Auth extends React.Component {
 
 
   render() {
-    const { classes } = this.props;
+    const { classes, login, signup } = this.props;
     const { value } = this.state;
 
     return (
@@ -39,8 +39,8 @@ class Auth extends React.Component {
             <Tab value="signup" label="Регистрация" />
           </Tabs>
         </AppBar>
-        {value === 'login' && <LoginForm />}
-        {value === 'signup' && <SignupForm />}
+        {value === 'login' && <LoginForm onSubmit={login}  />}
+        {value === 'signup' && <SignupForm onSubmit={signup} />}
       </Paper>
     )
   }

@@ -47,20 +47,7 @@ class LoginForm extends React.Component {
     event.preventDefault()
     const { username, password } = this.state
 
-    fetch('http://localhost:8000/v1/login',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      })
-    })
-      .then(response => response.json())
-      .then(console.log)
-      .catch(e => console.log(e))
+    this.props.onSubmit(username.value, password.value)
   }
 
   render() {
