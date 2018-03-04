@@ -126,14 +126,14 @@ export function logout() {
 export function receiveAuth() {
   return (dispatch, getState) => {
     const { token } = getState().auth
-
+   
     if (!token) {
-      dispatch({
+      return dispatch({
         type: types.RECEIVE_AUTH_FAILURE
       })
     }
 
-    return fetch('http://localhost:8000/v1/users/me', {     
+    return fetch('http://localhost:8000/v1/users/me', {       
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
