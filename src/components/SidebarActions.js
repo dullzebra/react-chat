@@ -9,13 +9,9 @@ import * as style from '../utils/constants';
 
 const styles = theme => ({
   addChat: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: style.bottomPanelHeight + theme.spacing.unit * 3,
-    left: style.drawerWidth - 80
-  },
-  bottomPanel: {
-    zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    right: theme.spacing.unit * 3
   }
 });
 
@@ -24,7 +20,7 @@ const SidebarActions = ({ classes }) => (
     <Button variant="fab" color="primary" className={classes.addChat} title="Создать новый чат">
       <AddIcon />
     </Button>
-    <BottomNavigation showLabels className={classes.bottomPanel}>
+    <BottomNavigation showLabels>
       <BottomNavigationAction label="Мои чаты" icon={<StarIcon />} />
       <BottomNavigationAction label="Все чаты" icon={<GroupIcon />} />
     </BottomNavigation>

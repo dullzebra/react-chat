@@ -7,9 +7,9 @@ import PetsIcon from 'material-ui-icons/Pets';
 import * as style from '../utils/constants';
 
 const styles = theme => ({
- title: {
+ title: {  
    display: 'flex',
-   alignItems: 'baseline',
+   alignItems: 'flex-end',
    ...style.authWidth,
    margin: 'auto'
  }
@@ -22,7 +22,7 @@ const WelcomeHeader = ({ classes }) => (
       <Typography 
         variant="title" color="inherit" noWrap className={classes.title}
         >
-        <PetsIcon /><span>&nbsp;&nbsp;Зверчата ждут вас</span>
+        <PetsIcon className={classes.logo} style={{height:'1.5em'}}/><span>&nbsp;&nbsp;Зверчата ждут вас</span>
      </Typography>
     </Toolbar>
   </AppBar>

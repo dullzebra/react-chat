@@ -9,9 +9,6 @@ const styles = theme => ({
     bottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 3,
     margin: theme.spacing.unit * 3
-  },
-  inputField: {    
-    display: 'flex'
   }
 });
 
@@ -21,10 +18,10 @@ class ChatInput extends React.Component {
     return (
       <Paper className={classes.inputPaper} elevation={4}>
         <TextField
+          fullWidth
           id="inputMessage"
           placeholder="Напишите что-нибудь еще"
-          type="text"
-          className={classes.inputField}
+          type="text"         
         />
       </Paper>
     )
