@@ -1,9 +1,7 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import Divider from 'material-ui/Divider';
 import ChatList from './ChatList';
-import SidebarFilter from './SidebarFilter';
 import SidebarActions from './SidebarActions';
 import * as style from '../utils/constants';
 
@@ -15,13 +13,10 @@ const styles = theme => ({
   }
 });
 
-
-const Sidebar = ({ classes, chats }) => (
+const Sidebar = ({ classes, chats, createChat, showAllChats, setActiveChat }) => (
   <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
-    <SidebarFilter />
-    <Divider />
-    <ChatList chats={chats} />
-    <SidebarActions />
+    <ChatList chats={chats} setActiveChat={setActiveChat} />
+    <SidebarActions createChat={createChat} showAllChats={showAllChats} />
   </Drawer>
 );
 

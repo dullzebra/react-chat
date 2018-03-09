@@ -10,7 +10,7 @@ const styles = theme => ({
  title: {  
    display: 'flex',
    alignItems: 'flex-end',
-   ...style.authWidth,
+   ...style.dialogWidth,
    margin: 'auto'
  }
 });

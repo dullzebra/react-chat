@@ -1,17 +1,14 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import UserProfile from './UserProfile';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import PersonIcon from 'material-ui-icons/AccountCircle';
 import IconButton from 'material-ui/IconButton';
 
-const styles = theme => ({
-  //
-});
-
 class UserActions extends React.Component {
   state = {
     menuEl: null,
-    isProfileOpen: false
+    isProfileOpen: false,
+    user: {}
   };
 
   handleMenuClick = event => {
@@ -23,12 +20,22 @@ class UserActions extends React.Component {
   };
 
   handleProfileClick = () => {
-    this.setState({ isProfileOpen: true })
+    this.setState({ isProfileOpen: true, menuEl: null });
+  }
+
+  handleProfileClose = () => {
+    this.setState({ isProfileOpen: false });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {     
+      this.setState({ user: nextProps.user })
+    }
   }
 
   render() {
-    const { classes, logout } = this.props
-    const { menuEl } = this.state
+    const { logout, editUser } = this.props;
+    const { menuEl, isProfileOpen } = this.state;
 
     return (
       <React.Fragment>
@@ -40,14 +47,18 @@ class UserActions extends React.Component {
           anchorEl={menuEl}
           open={Boolean(menuEl)}
           onClose={this.handleMenuClose}
-          style={{ marginTop: 30 }}
         >
           <MenuItem onClick={this.handleProfileClick}>Личные данные</MenuItem>
           <MenuItem onClick={logout}>Выйти</MenuItem>
         </Menu>
+        <UserProfile
+          user={this.state.user}        
+          open={isProfileOpen}
+          onClose={this.handleProfileClose}
+          onSave={editUser} />
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(UserActions);
+export default UserActions;

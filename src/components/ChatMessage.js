@@ -1,9 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
+import moment from 'moment';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import meColor from 'material-ui/colors/orange';
 import ChatAvatar from './ChatAvatar';
+import initials from '../utils/initials';
+import getColor from '../utils/color-from';
 
 const styles = theme => ({
   messageItem: {
@@ -15,14 +19,8 @@ const styles = theme => ({
   messageItemMe: {
     flexDirection: 'row-reverse',
   },
-  messageItem__author: {
-    fontSize: '90%'
-  },
-  messageItem__text: {
-    margin: '.2em 0'
-  },
   messageItem__date: {
-    fontSize: '90%'
+    fontSize: '85%',
   },
   messagePaper: {
     minWidth: '10em',
@@ -30,26 +28,58 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit,
-    fontSize: '.9em',
   },
   messagePaperMe: {
-    backgroundColor: 'lightBlue',
+    backgroundColor: meColor[50],
+  },
+  statusMessage: {
+    textAlign: 'center',
+    margin: theme.spacing.unit * 3
   }
 });
 
-const ChatMessage = ({ classes, author, message }) => {  
-  const IsMessageFromMe = author.toLowerCase() === 'me';
+const Color = ({ children }) => (
+  <span style={{ color: getColor(initials(children)) }}>{children}</span>
+)
 
-  return (
-    <div className={classnames(classes.messageItem, IsMessageFromMe && classes.messageItemMe)}>
-      <ChatAvatar name={author} />
-      <Paper className={classnames(classes.messagePaper, IsMessageFromMe && classes.messagePaperMe)}>
-        <Typography variant="caption">{author}</Typography>
-        <Typography variant="body1">{message}</Typography>
-        <div className={classes.messageItem__date}>40 мин назад</div>
-      </Paper>
-    </div>
-  )
+class ChatMessage extends React.Component {
+  displayName = (u) => {
+    return u.firstName || u.lastName ? `${u.firstName} ${u.lastName}` : u.username
+  }
+
+  render() {
+    const { classes, message, user } = this.props;
+    const IsMessageFromMe = message.sender._id === user._id;
+
+    return (
+      <React.Fragment>
+
+        {message.statusMessage &&
+          <Typography variant="body1" className={classes.statusMessage}>
+            <Color>{this.displayName(user)}</Color> {message.content}
+            &nbsp;<span className={classes.messageItem__date}>{moment(message.updatedAt).fromNow()}</span>
+          </Typography>
+        }
+
+        {!message.statusMessage &&
+          <div className={classnames(classes.messageItem, IsMessageFromMe && classes.messageItemMe)}>
+            <ChatAvatar name={this.displayName(message.sender)} />
+            <Paper className={classnames(classes.messagePaper, IsMessageFromMe && classes.messagePaperMe)}>
+              <Typography variant="body2">
+                <Color>{this.displayName(message.sender)}</Color>
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                {message.content}
+              </Typography>
+              <div className={classes.messageItem__date}>
+                {moment(message.updatedAt).fromNow()}
+              </div>
+            </Paper>
+          </div>}
+          
+      </React.Fragment>
+    )
+  }
 }
 
 export default withStyles(styles)(ChatMessage);
