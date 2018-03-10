@@ -29,16 +29,16 @@ class ChatTitle extends React.Component {
   };
 
   handleOnCloseChat = () => {
-      this.props.closeChat()
-      this.handleMenuClose()
-  }  
+    this.props.closeChat()
+    this.handleMenuClose()
+  }
 
   render() {
     const { classes, activeChat, user } = this.props;
     const { menuEl } = this.state;
 
     return (
-      <div className={classes.title} >
+      <div className={classes.title}>
 
         {activeChat &&
           <React.Fragment>

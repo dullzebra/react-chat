@@ -48,12 +48,12 @@ class Chat extends React.Component {
     }
   }
 
-  handleJoinBtn = () => {
+  handleJoin = () => {
     this.props.joinChat(this.props.activeChat._id);
   }
 
   handleSend = (content) => {
-    this.props.sendMessage(this.props.activeChat._id, content);
+    this.props.sendMessage(content);
   }
 
   render() {
@@ -83,7 +83,7 @@ class Chat extends React.Component {
 
               {user.isChatMember
                 ? <ChatInput sendMessage={this.handleSend} />
-                : <Button onClick={this.handleJoinBtn} variant="raised" color="primary" style={{ margin: 16 }}>
+                : <Button onClick={this.handleJoin} variant="raised" color="primary" style={{ margin: 16 }}>
                   Хочу к вам</Button>}
             </React.Fragment>}
 

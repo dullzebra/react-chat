@@ -17,7 +17,7 @@ export const RECEIVE_AUTH_REQUEST = Symbol('RECEIVE_AUTH_REQUEST')
 
 export const REDIRECT = Symbol('REDIRECT')
 
-/* Chats */ 
+/* Chats */
 export const ALL_CHATS_REQUEST = Symbol('ALL_CHATS_REQUEST')
 export const ALL_CHATS_SUCCESS = Symbol('ALL_CHATS_SUCCESS')
 export const ALL_CHATS_FAILURE = Symbol('ALL_CHATS_FAILURE')
@@ -56,7 +56,16 @@ export const EDIT_USER_REQUEST = Symbol('EDIT_USER_REQUEST')
 export const EDIT_USER_SUCCESS = Symbol('EDIT_USER_SUCCESS')
 export const EDIT_USER_FAILURE = Symbol('EDIT_USER_FAILURE')
 
-/* Message */
-export const SEND_MESSAGE_REQUEST = Symbol('SEND_MESSAGE_REQUEST')
-export const SEND_MESSAGE_SUCCESS = Symbol('SEND_MESSAGE_SUCCESS')
-export const SEND_MESSAGE_FAILURE = Symbol('SEND_MESSAGE_FAILURE')
+/* Socket */
+export const SOCKET_CONNECTION_REQUEST = Symbol('SOCKET_CONNECTION_REQUEST')
+export const SOCKET_CONNECTION_SUCCESS = Symbol('SOCKET_CONNECTION_SUCCESS')
+export const SOCKET_CONNECTION_FAILURE = Symbol('SOCKET_CONNECTION_FAILURE')
+export const SOCKET_CONNECTION_MISSING = Symbol('SOCKET_CONNECTION_MISSING')
+
+export const MOUNT_CHAT = Symbol('MOUNT_CHAT')
+export const UNMOUNT_CHAT = Symbol('UNMOUNT_CHAT')
+
+export const SEND_MESSAGE = Symbol('SEND_MESSAGE')
+export const RECEIVE_MESSAGE = Symbol('RECEIVE_MESSAGE')
+export const RECEIVE_NEW_CHAT = Symbol('RECEIVE_NEW_CHAT')
+export const RECEIVE_DELETED_CHAT = Symbol('RECEIVE_DELETED_CHAT')

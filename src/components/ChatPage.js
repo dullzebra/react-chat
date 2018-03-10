@@ -15,20 +15,30 @@ const styles = theme => ({
 
 class ChatPage extends React.Component {
   componentDidMount() {
-    const { getAllChats, getMyChats, setActiveChat } = this.props;
-    const urlParam = this.props.match.params.id
+    const { getAllChats, getMyChats, setActiveChat, socketConnect, mountChat } = this.props;
 
-    Promise.all([getAllChats(), getMyChats()]).then(() => {       
-      urlParam && setActiveChat(urlParam)
-    })
+    Promise.all([getAllChats(), getMyChats()])
+      .then(() => {
+        socketConnect()
+      })
+      .then(() => {
+        const urlParam = this.props.match.params.id
+        if (urlParam) {
+          setActiveChat(urlParam)
+          mountChat(urlParam)
+        }
+      })
   }
 
-  componentWillReceiveProps(nextProps) {    
+  componentWillReceiveProps(nextProps) {
+    const {mountChat, unmountChat, setActiveChat} = this.props
     const urlParam = this.props.match.params.id
     const nextUrlParam = nextProps.match.params.id
 
     if (nextUrlParam && urlParam !== nextUrlParam) {
-      this.props.setActiveChat(nextUrlParam);
+      setActiveChat(nextUrlParam)
+      unmountChat(urlParam)
+      mountChat(nextUrlParam)
     }
   }
 

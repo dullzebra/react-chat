@@ -100,7 +100,7 @@ export function createChat(title) {
           type: types.CREATE_CHAT_SUCCESS,
           payload: data
         });
-        dispatch(redirect(`/chat/${data.chat._id}`));     
+        dispatch(redirect(`/chat/${data.chat._id}`));
       })
       .catch(reason =>
         dispatch({
@@ -122,8 +122,7 @@ export function joinChat(chatId) {
         dispatch({
           type: types.JOIN_CHAT_SUCCESS,
           payload: data
-        });  
-        dispatch(redirect(`/chat/${chatId}`));            
+        });    
       })
       .catch(reason => {
         dispatch({
@@ -147,7 +146,7 @@ export function leaveChat() {
         dispatch({
           type: types.LEAVE_CHAT_SUCCESS,
           payload: data
-        });        
+        });
       })
       .catch(reason => {
         dispatch({
@@ -160,11 +159,11 @@ export function leaveChat() {
 
 export function deleteChat() {
   return (dispatch, getState) => {
-    const chatId = getState().chat.currentId;    
+    const chatId = getState().chat.currentId;
     dispatch({
       type: types.DELETE_CHAT_REQUEST,
       payload: chatId
-    })   
+    })
 
     return http(`chats/${chatId}`, getState().auth.token, {}, { method: 'DELETE' })
       .then((data) => {
@@ -172,7 +171,7 @@ export function deleteChat() {
           type: types.DELETE_CHAT_SUCCESS,
           payload: data
         });
-       dispatch(redirect('/chat'));      
+        dispatch(redirect('/chat'));
       })
       .catch(reason => {
         dispatch({
@@ -187,27 +186,5 @@ export function showAllChats(bool) {
   return {
     type: types.SHOW_ALL_CHATS,
     payload: bool
-  }
-}
-
-export function sendMessage(chatId, content) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: types.SEND_MESSAGE_REQUEST
-    })
-
-    return http(`chats/${chatId}`, getState().auth.token, { data: { content } }, { method: 'POST' })
-      .then(data => {
-        dispatch({
-          type: types.SEND_MESSAGE_SUCCESS,
-          payload: data
-        })
-        dispatch(getChat(chatId))
-      })
-      .catch(reason =>
-        dispatch({
-          type: types.SEND_MESSAGE_FAILURE,
-          payload: reason
-        }))
   }
 }
