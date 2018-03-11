@@ -1,3 +1,4 @@
-export * from './auth.js';
-export * from './chat.js';
-export * from './services.js';
+export * from './auth';
+export * from './chat';
+export * from './user';
+export * from './services';

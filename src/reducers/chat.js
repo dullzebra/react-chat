@@ -11,11 +11,9 @@ const initialState = {
 }
 
 const currentId = (state = initialState.currentId, action) => {
-  switch (action.type) {
-    case types.CREATE_CHAT_SUCCESS:
+  switch (action.type) {  
     case types.SET_ACTIVE_CHAT:
-      return getChatId(action.payload.chat);
-    case types.DELETE_CHAT_SUCCESS:
+      return getChatId(action.payload.chat);  
     case types.UNSET_ACTIVE_CHAT:
       return null;
     case types.RECEIVE_DELETED_CHAT:
@@ -74,22 +72,11 @@ const byIds = (state = initialState.byIds, action) => {
       delete copy[getChatId(action.payload.chat)];
       return copy;
     case types.LEAVE_CHAT_SUCCESS:
-    case types.JOIN_CHAT_SUCCESS:
-      const chat = { ...state[getChatId(action.payload.chat)] };
-      chat.members = action.payload.chat.members;
+    case types.JOIN_CHAT_SUCCESS:   
       return {
         ...state,
-        [getChatId(action.payload.chat)]: { ...chat }
-      }
-    default:
-      return state;
-  }
-}
-
-const isAllChatsActive = (state = initialState.isAllChatsActive, action) => {
-  switch (action.type) {
-    case types.SHOW_ALL_CHATS:
-      return action.payload;
+        [getChatId(action.payload.chat)]: action.payload.chat,
+      };
     default:
       return state;
   }
@@ -112,8 +99,7 @@ export default combineReducers({
   currentId,
   allIds,
   myIds,
-  byIds,
-  isAllChatsActive,
+  byIds, 
   messages
 })
 

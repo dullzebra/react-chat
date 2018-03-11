@@ -108,25 +108,3 @@ export function receiveAuth() {
   }
 }
 
-export function editUser(user) {
-  return (dispatch, getState) => {
-    const { token } = getState().auth
-    if (!token) {
-      return dispatch({
-        type: types.EDIT_USER_FAILURE
-      })
-    }
-
-    return http('users/me', token, { data: user }, { method: 'POST' })
-      .then(data =>
-        dispatch({
-          type: types.EDIT_USER_SUCCESS,
-          payload: data
-        }))
-      .catch(reason =>
-        dispatch({
-          type: types.EDIT_USER_FAILURE,
-          payload: reason
-        }))
-  }
-}

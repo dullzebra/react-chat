@@ -28,14 +28,14 @@ class UserActions extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {     
+    if (nextProps.user) {
       this.setState({ user: nextProps.user })
     }
   }
 
   render() {
     const { logout, editUser } = this.props;
-    const { menuEl, isProfileOpen } = this.state;
+    const { menuEl, isProfileOpen, user } = this.state;
 
     return (
       <React.Fragment>
@@ -52,7 +52,7 @@ class UserActions extends React.Component {
           <MenuItem onClick={logout}>Выйти</MenuItem>
         </Menu>
         <UserProfile
-          user={this.state.user}        
+          user={user}
           open={isProfileOpen}
           onClose={this.handleProfileClose}
           onSave={editUser} />

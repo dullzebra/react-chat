@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import 'typeface-roboto';
 import './index.css';
-import { Provider } from 'react-redux';
 import configureStore from './store';
-import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
+import App from './components/App';
 
 const store = configureStore();
 const rootEl = document.getElementById('root');

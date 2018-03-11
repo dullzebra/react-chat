@@ -38,48 +38,39 @@ const styles = theme => ({
   }
 });
 
-const Color = ({ children }) => (
-  <span style={{ color: getColor(initials(children)) }}>{children}</span>
-)
+const Color = ({ children }) => <span style={{ color: getColor(initials(children)) }}>{children}</span>;
 
-class ChatMessage extends React.Component {
-  displayName = (u) => {
+const ChatMessage = ({ classes, message, fromMe }) => {
+  const displayName = (u) => {
     return u.firstName || u.lastName ? `${u.firstName} ${u.lastName}` : u.username
   }
-
-  render() {
-    const { classes, message, user } = this.props;
-    const IsMessageFromMe = message.sender._id === user._id;
-
-    return (
-      <React.Fragment>
-
-        {message.statusMessage &&
-          <Typography variant="body1" className={classes.statusMessage}>
-            <Color>{this.displayName(user)}</Color> {message.content}
-            &nbsp;<span className={classes.messageItem__date}>{moment(message.updatedAt).fromNow()}</span>
-          </Typography>
-        }
-
-        {!message.statusMessage &&
-          <div className={classnames(classes.messageItem, IsMessageFromMe && classes.messageItemMe)}>
-            <ChatAvatar name={this.displayName(message.sender)} />
-            <Paper className={classnames(classes.messagePaper, IsMessageFromMe && classes.messagePaperMe)}>
-              <Typography variant="body2">
-                <Color>{this.displayName(message.sender)}</Color>
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                {message.content}
-              </Typography>
-              <div className={classes.messageItem__date}>
-                {moment(message.updatedAt).fromNow()}
-              </div>
-            </Paper>
-          </div>}
-          
-      </React.Fragment>
-    )
-  }
-}
+  const sender = displayName(message.sender);
+  
+  return (
+    <React.Fragment>
+      {message.statusMessage &&
+        <Typography variant="body1" className={classes.statusMessage}>
+          <Color>{sender}</Color> {message.content}
+          &nbsp;<span className={classes.messageItem__date}>{moment(message.updatedAt).fromNow()}</span>
+        </Typography>
+      }
+      {!message.statusMessage &&
+        <div className={classnames(classes.messageItem, fromMe && classes.messageItemMe)}>
+          <ChatAvatar name={sender} />
+          <Paper className={classnames(classes.messagePaper, fromMe && classes.messagePaperMe)}>
+            <Typography variant="body2">
+              <Color>{sender}</Color>
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              {message.content}
+            </Typography>
+            <div className={classes.messageItem__date}>
+              {moment(message.updatedAt).fromNow()}
+            </div>
+          </Paper>
+        </div>}
+    </React.Fragment>
+  )
+};
 
 export default withStyles(styles)(ChatMessage);

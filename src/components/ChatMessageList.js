@@ -12,8 +12,8 @@ const styles = theme => ({
 const ChatMessageList = ({ classes, messages, user }) => (
   <div className={classes.messageList}>
     {messages.map((item, index) =>
-      <ChatMessage key={index} message={item} user={user} />)}
+      <ChatMessage key={index} message={item} fromMe={item.sender._id === user._id} />)}
   </div>
-)
+);
 
 export default withStyles(styles)(ChatMessageList);

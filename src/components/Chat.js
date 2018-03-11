@@ -58,37 +58,24 @@ class Chat extends React.Component {
 
   render() {
     const { classes, user, activeChat, messages } = this.props;
+   
+    const msgPanel = messages.length ? (<ChatMessageList messages={messages} user={user} />
+    ) : (<div className={classes.chatIntro}>
+      <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
+    </div>);
 
-    const emptyPanel = (
-      <div className={classes.chatIntro}>
-        <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
-      </div>
-    );
+    const footer = user.isChatMember ? (<ChatInput sendMessage={this.handleSend} />
+    ) : (<Button onClick={this.handleJoin} variant="raised" color="primary" style={{ margin: 16 }}>
+      Хочу к вам</Button>);
 
-    const unactivePanel = (
-      <div className={classes.chatIntro}>
-        <Typography variant="subheading">Выбери чат из списка слева или создай свой</Typography>
-      </div>
-    );
+    const unactivePanel = (<div className={classes.chatIntro}>
+      <Typography variant="subheading">Выбери чат из списка слева или создай свой</Typography>
+    </div>);
 
     return (
       <main className={classes.content}>
         <div ref="messagesContainer" className={classes.chatContainer}>
-
-          {activeChat &&
-            <React.Fragment>
-              {messages.length > 0
-                ? <ChatMessageList messages={messages} user={user} />
-                : emptyPanel}
-
-              {user.isChatMember
-                ? <ChatInput sendMessage={this.handleSend} />
-                : <Button onClick={this.handleJoin} variant="raised" color="primary" style={{ margin: 16 }}>
-                  Хочу к вам</Button>}
-            </React.Fragment>}
-
-          {!activeChat && unactivePanel}
-
+          {activeChat ? <React.Fragment>{msgPanel}{footer}</React.Fragment> : unactivePanel}
         </div>
       </main>
     )

@@ -1,4 +1,5 @@
 import React from 'react';
+import 'moment/locale/ru';
 import { withStyles } from 'material-ui/styles';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
@@ -31,7 +32,7 @@ class ChatPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {mountChat, unmountChat, setActiveChat} = this.props
+    const { mountChat, unmountChat, setActiveChat } = this.props
     const urlParam = this.props.match.params.id
     const nextUrlParam = nextProps.match.params.id
 
@@ -44,7 +45,7 @@ class ChatPage extends React.Component {
 
   render() {
     const { classes,
-      chats, chats: { active: activeChat }, showAllChats,
+      chats, chats: { active: activeChat },
       createChat, joinChat, leaveChat, deleteChat, setActiveChat,
       user, editUser, logout,
       messages, sendMessage } = this.props
@@ -61,7 +62,6 @@ class ChatPage extends React.Component {
           chats={chats}
           createChat={createChat}
           setActiveChat={setActiveChat}
-          showAllChats={showAllChats}
         />
         <Chat
           user={user}

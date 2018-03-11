@@ -181,10 +181,3 @@ export function deleteChat() {
       })
   }
 }
-
-export function showAllChats(bool) {
-  return {
-    type: types.SHOW_ALL_CHATS,
-    payload: bool
-  }
-}

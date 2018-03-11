@@ -73,8 +73,7 @@ export function sendMessage(content) {
       dispatch(socketConnectionMissing())
     }
     const chatId = getState().chat.currentId;
-    socket.emit('send-message', { chatId, content },
-      () => dispatch({
+    socket.emit('send-message', { chatId, content }, () => dispatch({
         type: types.SEND_MESSAGE,
         payload: { chatId, content }
       })

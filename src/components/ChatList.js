@@ -36,7 +36,7 @@ class ChatList extends React.Component {
   getList() {
     const { chats } = this.props;
     const { filter } = this.state;
-    const list = chats.isAllChatsActive ? chats.allChats : chats.myChats;
+    const list = this.props.isAllChatsActive ? chats.allChats : chats.myChats;
 
     if (filter.trim().length)
       return list
@@ -51,13 +51,12 @@ class ChatList extends React.Component {
   render() {
     const { classes, chats } = this.props;
 
-    const emptyChatList = this.state.filter
-      ? <Typography className={classes.chatIntro} align="center">
-        Таких чатов не нашлось
-            </Typography>
-      : <Typography className={classes.chatIntro} align="center">
-        В списке пока нет чатов. Cоздай свой
-          </Typography>
+    const emptyChatList = this.state.filter ? (<Typography className={classes.chatIntro} align="center">
+      Таких чатов не нашлось
+      </Typography>
+    ) : (<Typography className={classes.chatIntro} align="center">
+      В списке пока нет чатов. Cоздай свой
+      </Typography>)
 
     return (
       <React.Fragment>
@@ -73,16 +72,13 @@ class ChatList extends React.Component {
         </form>
         <Divider />
 
-        {this.getList().length > 0
-          ? <List className={classes.chatList}>
-            {this.getList().map((item) => (
-              <ChatListItem key={item._id} data={item} active={chats.active} />
-            ))}
-          </List>
-          : emptyChatList
-        }
-      </React.Fragment>
-    )
+        {this.getList().length > 0 ? (<List className={classes.chatList}>
+          {this.getList().map((item) => (
+            <ChatListItem key={item._id} data={item} active={chats.active} />
+          ))}
+        </List>
+        ) : emptyChatList}
+      </React.Fragment>    )
   }
 }
 

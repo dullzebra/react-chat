@@ -13,11 +13,23 @@ const styles = theme => ({
   }
 });
 
-const Sidebar = ({ classes, chats, createChat, showAllChats, setActiveChat }) => (
-  <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
-    <ChatList chats={chats} setActiveChat={setActiveChat} />
-    <SidebarActions createChat={createChat} showAllChats={showAllChats} />
-  </Drawer>
-);
+class Sidebar extends React.Component {
+  state = {
+    isAllChatsActive: true
+  }
+  
+  showAllChats = (bool) => {
+    this.setState({ isAllChatsActive: bool })
+  }
 
+  render() {
+    const { classes, chats, createChat, setActiveChat } = this.props;
+
+    return (
+      <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
+        <ChatList chats={chats} setActiveChat={setActiveChat} isAllChatsActive={this.state.isAllChatsActive} />
+        <SidebarActions createChat={createChat} showAllChats={this.showAllChats} />
+      </Drawer>)
+  }
+}
 export default withStyles(styles)(Sidebar);
