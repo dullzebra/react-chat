@@ -3,6 +3,11 @@ import * as types from '../constants';
 
 export function editUser(user) {
   return (dispatch, getState) => {
+    const { isFetching } = getState().services
+    if (isFetching.editUser) {
+      return Promise.resolve();
+    }
+
     const { token } = getState().auth
     if (!token) {
       return dispatch({

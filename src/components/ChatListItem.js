@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { withStyles } from 'material-ui/styles';
 import { ListItem, ListItemText } from 'material-ui/List';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ChatAvatar from './ChatAvatar';
 
 const styles = theme => ({
@@ -11,13 +11,16 @@ const styles = theme => ({
   }
 });
 
-const ChatListItem = ({ classes, data, active }) => (
+const ChatListItem = ({ classes, disabled, id, title, date }) => (
   <ListItem button
-    component={Link} to={`/chat/${data._id}`}
-    className={active && active._id === data._id ? classes.currentChat : ''}    
+    disabled={disabled}
+    component={NavLink} to={`/chat/${id}`}
+    activeClassName={classes.currentChat}
   >
-    <ChatAvatar name={data.title} />
-    <ListItemText primary={data.title} secondary={moment(data.updatedAt).fromNow()} />
+    <ChatAvatar name={title} />
+    <ListItemText
+      primary={title}
+      secondary={moment(date).fromNow()} />
   </ListItem>
 );
 

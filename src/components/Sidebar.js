@@ -17,18 +17,22 @@ class Sidebar extends React.Component {
   state = {
     isAllChatsActive: true
   }
-  
+
   showAllChats = (bool) => {
     this.setState({ isAllChatsActive: bool })
   }
 
   render() {
-    const { classes, chats, createChat, setActiveChat } = this.props;
+    const { classes, chats, createChat, isConnected } = this.props;
 
     return (
       <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
-        <ChatList chats={chats} setActiveChat={setActiveChat} isAllChatsActive={this.state.isAllChatsActive} />
-        <SidebarActions createChat={createChat} showAllChats={this.showAllChats} />
+        <ChatList
+          disabled={!isConnected}
+          chats={this.state.isAllChatsActive ? chats.allChats : chats.myChats} />
+        <SidebarActions
+          disabled={!isConnected}
+          createChat={createChat} showAllChats={this.showAllChats} />
       </Drawer>)
   }
 }

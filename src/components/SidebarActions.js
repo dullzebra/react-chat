@@ -52,7 +52,7 @@ class SidebarActions extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, disabled } = this.props;
 
     return (
       <React.Fragment>
@@ -64,6 +64,7 @@ class SidebarActions extends React.Component {
         </BottomNavigation>
 
         <Button variant="fab" color="primary" className={classes.addChat}
+          disabled={disabled}
           onClick={this.handleOpen} >
           <AddIcon />
         </Button>

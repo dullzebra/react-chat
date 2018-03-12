@@ -1,9 +1,15 @@
 import http from '../utils/api';
-import * as types from '../constants'
+import * as types from '../constants';
+
 
 
 export function signup(username, password) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services
+    if (isFetching.signup) {
+      return Promise.resolve()
+    }
+
     dispatch({
       type: types.SIGNUP_REQUEST
     })
@@ -30,7 +36,12 @@ export function signup(username, password) {
 }
 
 export function login(username, password) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services
+    if (isFetching.login) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: types.LOGIN_REQUEST
     })
@@ -85,9 +96,13 @@ export function logout() {
 }
 
 export function receiveAuth() {
-  return (dispatch, getState) => {
-    const { token } = getState().auth
+  return (dispatch, getState) => {    
+    const { isFetching } = getState().services
+    if (isFetching.receiveAuth) {
+      return Promise.resolve();
+    }
 
+    const { token } = getState().auth
     if (!token) {
       return dispatch({
         type: types.RECEIVE_AUTH_FAILURE

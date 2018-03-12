@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import * as style from '../utils/constants';
+import isEqual from 'lodash/isEqual';
 
 const styles = theme => ({
   paper: {
@@ -40,11 +41,15 @@ class UserProfile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { username, firstName, lastName } = nextProps.user;  
+    const { username, firstName, lastName } = nextProps.user;
     this.setState({ username, firstName, lastName });
   }
+ 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.open !== this.props.open || !isEqual(nextState, this.state);
+  }
 
-  render() {
+  render() {   
     const { classes, open, onClose } = this.props;
 
     return (

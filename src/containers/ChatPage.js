@@ -26,7 +26,9 @@ const mapStateToProps = state => {
       allChats: fromChats.getChatsById(state.chat.allIds, state.chat),
       myChats: fromChats.getChatsById(state.chat.myIds, state.chat)
     },
-    messages: state.chat.messages
+    messages: state.chat.messages,
+    error: state.services.error.chat,
+    isConnected:state.services.isConnected   
   };
 };
 

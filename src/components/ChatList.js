@@ -36,20 +36,19 @@ class ChatList extends React.Component {
   getList() {
     const { chats } = this.props;
     const { filter } = this.state;
-    const list = this.props.isAllChatsActive ? chats.allChats : chats.myChats;
 
     if (filter.trim().length)
-      return list
+      return chats
         .filter(item =>
           item.title.toLowerCase().includes(filter.toLowerCase()))
         .sort((a, b) =>
           (a.title.toLowerCase() <= b.title.toLowerCase() ? -1 : 1))
     else
-      return list;
+      return chats;
   }
 
   render() {
-    const { classes, chats } = this.props;
+    const { classes, disabled } = this.props;
 
     const emptyChatList = this.state.filter ? (<Typography className={classes.chatIntro} align="center">
       Таких чатов не нашлось
@@ -74,11 +73,17 @@ class ChatList extends React.Component {
 
         {this.getList().length > 0 ? (<List className={classes.chatList}>
           {this.getList().map((item) => (
-            <ChatListItem key={item._id} data={item} active={chats.active} />
+            <ChatListItem
+              key={item._id}
+              disabled={disabled}
+              id={item._id}
+              title={item.title}
+              date={item.updatedAt} />
           ))}
         </List>
         ) : emptyChatList}
-      </React.Fragment>    )
+      </React.Fragment>
+    )
   }
 }
 

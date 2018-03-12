@@ -13,18 +13,17 @@ const styles = theme => ({
   }
 });
 
-class ChatHeader extends React.Component {
-  render() {
-    const { classes, activeChat, closeChat, logout, user, editUser } = this.props;
-
-    return (<AppBar className={classes.appBar}>
+const ChatHeader = ({ classes, activeChat, closeChat, logout, user, editUser, isConnected }) => (
+    <AppBar className={classes.appBar}>
       <Toolbar>
-        <ChatTitle user={user} activeChat={activeChat} closeChat={closeChat} />
-        <UserActions user={user} logout={logout} editUser={editUser} />
+        <ChatTitle
+          user={user}
+          activeChat={activeChat} closeChat={closeChat}
+          isConnected={isConnected} />
+        <UserActions user={user} editUser={editUser} logout={logout}
+          isConnected={isConnected} />
       </Toolbar>
     </AppBar>
-    )
-  }
-}
+ )
 
 export default withStyles(styles)(ChatHeader);

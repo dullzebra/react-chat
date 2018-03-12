@@ -1,11 +1,13 @@
-import { combineReducers } from 'redux'
-import auth from './auth'
-import chat from './chat'
+import { combineReducers } from 'redux';
+import auth from './auth';
+import chat from './chat';
+import services from './services';
 
 export default combineReducers({
   auth,
-  chat
-})
+  chat,
+  services
+});
 
 export const isMember = (user, chat) => {
   try {
@@ -13,7 +15,7 @@ export const isMember = (user, chat) => {
   } catch (e) {
     return false
   }
-}
+};
 
 export const isCreator = (user, chat) => {
   try {
@@ -21,6 +23,6 @@ export const isCreator = (user, chat) => {
   } catch (e) {
     return false
   }
-}
+};
 
 export const isChatMember = (user, chat) => isCreator(user, chat) || isMember(user, chat);

@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
-import * as types from '../constants'
+import * as types from '../constants';
 
 const initialState = {
   currentId: null,
   allIds: [],
   myIds: [],
-  byIds: {},
-  isAllChatsActive: true,
+  byIds: {},  
   messages: []
 }
 

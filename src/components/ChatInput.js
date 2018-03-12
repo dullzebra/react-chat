@@ -30,7 +30,7 @@ class ChatInput extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, disabled } = this.props;
     return (
       <Paper className={classes.inputPaper} elevation={4}>
         <form onSubmit={this.handleSubmit}>
@@ -41,6 +41,7 @@ class ChatInput extends React.Component {
           type="text"
           value={this.state.input}
           onChange={this.handleInputChange}
+          disabled={disabled}
         />
         </form>
       </Paper>

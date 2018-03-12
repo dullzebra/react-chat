@@ -34,7 +34,7 @@ class ChatTitle extends React.Component {
   }
 
   render() {
-    const { classes, activeChat, user } = this.props;
+    const { classes, activeChat, user, isConnected } = this.props;
     const { menuEl } = this.state;
 
     return (
@@ -48,7 +48,9 @@ class ChatTitle extends React.Component {
 
             {user.isChatMember &&
               <React.Fragment>
-                <IconButton onClick={this.handleMenuClick} color="inherit">
+                <IconButton
+                  disabled={!isConnected}
+                  onClick={this.handleMenuClick} color="inherit">
                   <MoreVertIcon />
                 </IconButton>
                 <Menu

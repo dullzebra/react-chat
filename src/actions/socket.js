@@ -6,13 +6,19 @@ let socket = null;
 
 export function socketConnectionMissing() {
   return {
-    type: types.SOCKET_CONNECTION_MISSING
+    type: types.SOCKET_CONNECTION_MISSING,
+    payload: new Error('Socket connection missing')
   }
 }
 
 export function socketConnect() {
   return (dispatch, getState) => {
     const { token } = getState().auth
+
+    const { isFetching } = getState().services
+    if (isFetching.sockets) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: types.SOCKET_CONNECTION_REQUEST
@@ -26,15 +32,17 @@ export function socketConnect() {
       })
     })
 
-    socket.on('error', () => {
+    socket.on('error', (error) => {
       dispatch({
-        type: types.SOCKET_CONNECTION_FAILURE
+        type: types.SOCKET_CONNECTION_FAILURE,
+        payload: new Error(error)
       })
     })
 
     socket.on('connect_error', () => {
       dispatch({
-        type: types.SOCKET_CONNECTION_FAILURE
+        type: types.SOCKET_CONNECTION_FAILURE,
+        payload: new Error('Connection error')
       })
     })
 
@@ -52,7 +60,7 @@ export function socketConnect() {
       })
     })
 
-    socket.on('deleted-chat', ({ chat }) => {     
+    socket.on('deleted-chat', ({ chat }) => {
       const { currentId } = getState().chat
 
       dispatch({
@@ -74,9 +82,9 @@ export function sendMessage(content) {
     }
     const chatId = getState().chat.currentId;
     socket.emit('send-message', { chatId, content }, () => dispatch({
-        type: types.SEND_MESSAGE,
-        payload: { chatId, content }
-      })
+      type: types.SEND_MESSAGE,
+      payload: { chatId, content }
+    })
     )
   }
 }

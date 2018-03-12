@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
 import ChatHeader from './ChatHeader';
+import Error from './ErrorMessage';
 
 //import {chats, messages } from '../mock-data.json'
 
@@ -46,30 +47,35 @@ class ChatPage extends React.Component {
   render() {
     const { classes,
       chats, chats: { active: activeChat },
-      createChat, joinChat, leaveChat, deleteChat, setActiveChat,
+      createChat, joinChat, leaveChat, deleteChat,
       user, editUser, logout,
-      messages, sendMessage } = this.props
+      messages, sendMessage,
+      error, isConnected } = this.props
 
     return (
-      <div className={classes.appFrame}>
-        <ChatHeader
-          user={user}
-          activeChat={activeChat}
-          logout={logout}
-          editUser={editUser}
-          closeChat={user.isCreator ? deleteChat : leaveChat} />
-        <Sidebar
-          chats={chats}
-          createChat={createChat}
-          setActiveChat={setActiveChat}
-        />
-        <Chat
-          user={user}
-          activeChat={activeChat}
-          joinChat={joinChat}
-          messages={messages}
-          sendMessage={sendMessage} />
-      </div>
+      <React.Fragment>
+        <div className={classes.appFrame}>
+          <ChatHeader
+            user={user}
+            activeChat={activeChat}
+            logout={logout}
+            editUser={editUser}
+            closeChat={user.isCreator ? deleteChat : leaveChat}
+            isConnected={isConnected} />
+          <Sidebar
+            chats={chats}
+            createChat={createChat} 
+            isConnected={isConnected} />
+          <Chat
+            user={user}
+            activeChat={activeChat}
+            joinChat={joinChat}
+            messages={messages}
+            sendMessage={sendMessage} 
+            isConnected={isConnected} />
+        </div>
+        <Error error={error} />
+      </React.Fragment>
     )
   }
 }

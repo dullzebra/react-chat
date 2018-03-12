@@ -7,8 +7,7 @@ import IconButton from 'material-ui/IconButton';
 class UserActions extends React.Component {
   state = {
     menuEl: null,
-    isProfileOpen: false,
-    user: {}
+    isProfileOpen: false,  
   };
 
   handleMenuClick = event => {
@@ -27,19 +26,15 @@ class UserActions extends React.Component {
     this.setState({ isProfileOpen: false });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
-      this.setState({ user: nextProps.user })
-    }
-  }
-
   render() {
-    const { logout, editUser } = this.props;
-    const { menuEl, isProfileOpen, user } = this.state;
+    const { logout, editUser, isConnected, user } = this.props;
+    const { menuEl, isProfileOpen } = this.state;
 
     return (
       <React.Fragment>
-        <IconButton onClick={this.handleMenuClick} color="inherit">
+        <IconButton
+          disabled={!isConnected}
+          onClick={this.handleMenuClick} color="inherit">
           <PersonIcon />
         </IconButton>
         <Menu

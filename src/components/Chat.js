@@ -48,25 +48,30 @@ class Chat extends React.Component {
     }
   }
 
-  handleJoin = () => {
-    this.props.joinChat(this.props.activeChat._id);
-  }
-
   handleSend = (content) => {
     this.props.sendMessage(content);
   }
 
   render() {
-    const { classes, user, activeChat, messages } = this.props;
-   
-    const msgPanel = messages.length ? (<ChatMessageList messages={messages} user={user} />
-    ) : (<div className={classes.chatIntro}>
-      <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
-    </div>);
+    const { classes, user, activeChat, joinChat, messages, isConnected } = this.props;
 
-    const footer = user.isChatMember ? (<ChatInput sendMessage={this.handleSend} />
-    ) : (<Button onClick={this.handleJoin} variant="raised" color="primary" style={{ margin: 16 }}>
-      Хочу к вам</Button>);
+    const msgPanel = messages.length ? (
+      <ChatMessageList messages={messages} userId={user._id} />
+    ) : (
+        <div className={classes.chatIntro}>
+          <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
+        </div>
+      );
+
+    const footer = user.isChatMember ? (
+      <ChatInput  disabled={!isConnected} sendMessage={this.handleSend} />
+    ) : (
+        <Button
+          disabled={!isConnected}
+          onClick={joinChat}
+          variant="raised" color="primary" style={{ margin: 16 }}>
+          Хочу к вам</Button>
+      );
 
     const unactivePanel = (<div className={classes.chatIntro}>
       <Typography variant="subheading">Выбери чат из списка слева или создай свой</Typography>
