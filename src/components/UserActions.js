@@ -1,16 +1,16 @@
 import React from 'react';
-import UserProfile from './UserProfile';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import PersonIcon from 'material-ui-icons/AccountCircle';
 import IconButton from 'material-ui/IconButton';
+import UserProfile from './UserProfile';
 
 class UserActions extends React.Component {
   state = {
     menuEl: null,
-    isProfileOpen: false,  
+    isProfileOpen: false,
   };
 
-  handleMenuClick = event => {
+  handleMenuClick = (event) => {
     this.setState({ menuEl: event.currentTarget });
   };
 
@@ -20,21 +20,21 @@ class UserActions extends React.Component {
 
   handleProfileClick = () => {
     this.setState({ isProfileOpen: true, menuEl: null });
-  }
+  };
 
   handleProfileClose = () => {
     this.setState({ isProfileOpen: false });
-  }
+  };
 
   render() {
-    const { logout, editUser, isConnected, user } = this.props;
+    const {
+      logout, editUser, isConnected, user,
+    } = this.props;
     const { menuEl, isProfileOpen } = this.state;
 
     return (
       <React.Fragment>
-        <IconButton
-          disabled={!isConnected}
-          onClick={this.handleMenuClick} color="inherit">
+        <IconButton disabled={!isConnected} onClick={this.handleMenuClick} color="inherit">
           <PersonIcon />
         </IconButton>
         <Menu
@@ -50,7 +50,8 @@ class UserActions extends React.Component {
           user={user}
           open={isProfileOpen}
           onClose={this.handleProfileClose}
-          onSave={editUser} />
+          onSave={editUser}
+        />
       </React.Fragment>
     );
   }

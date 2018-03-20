@@ -8,25 +8,25 @@ const styles = theme => ({
     position: 'sticky',
     bottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 3,
-    margin: theme.spacing.unit * 3
-  }
+    margin: theme.spacing.unit * 3,
+  },
 });
 
 class ChatInput extends React.Component {
   state = {
-    input: ''
+    input: '',
   }
 
   handleInputChange = (e) => {
-    this.setState({input: e.target.value})
+    this.setState({ input: e.target.value });
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();   
+    e.preventDefault();
     if (!this.state.input.trim().length) return;
 
     this.props.sendMessage(this.state.input);
-    this.setState({input: ''})
+    this.setState({ input: '' });
   }
 
   render() {
@@ -34,18 +34,18 @@ class ChatInput extends React.Component {
     return (
       <Paper className={classes.inputPaper} elevation={4}>
         <form onSubmit={this.handleSubmit}>
-        <TextField
-          fullWidth
-          name="inputMessage"
-          placeholder="Напишите что-нибудь еще"
-          type="text"
-          value={this.state.input}
-          onChange={this.handleInputChange}
-          disabled={disabled}
-        />
+          <TextField
+            fullWidth
+            name="inputMessage"
+            placeholder="Напишите что-нибудь еще"
+            type="text"
+            value={this.state.input}
+            onChange={this.handleInputChange}
+            disabled={disabled}
+          />
         </form>
       </Paper>
-    )
+    );
   }
 }
 

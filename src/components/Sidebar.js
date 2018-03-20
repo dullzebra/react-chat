@@ -3,37 +3,43 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import ChatList from './ChatList';
 import SidebarActions from './SidebarActions';
-import * as style from '../utils/constants';
+import * as style from '../constants/styles';
 
-const styles = theme => ({
+const styles = () => ({
   drawerPaper: {
     position: 'relative',
     width: style.drawerWidth,
-    overflow: 'hidden'
-  }
+    overflow: 'hidden',
+  },
 });
 
 class Sidebar extends React.Component {
   state = {
-    isAllChatsActive: true
-  }
+    isAllChatsActive: true,
+  };
 
   showAllChats = (bool) => {
-    this.setState({ isAllChatsActive: bool })
-  }
+    this.setState({ isAllChatsActive: bool });
+  };
 
   render() {
-    const { classes, chats, createChat, isConnected } = this.props;
+    const {
+      classes, chats, createChat, isConnected,
+    } = this.props;
 
     return (
       <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
         <ChatList
           disabled={!isConnected}
-          chats={this.state.isAllChatsActive ? chats.allChats : chats.myChats} />
+          chats={this.state.isAllChatsActive ? chats.allChats : chats.myChats}
+        />
         <SidebarActions
           disabled={!isConnected}
-          createChat={createChat} showAllChats={this.showAllChats} />
-      </Drawer>)
+          createChat={createChat}
+          showAllChats={this.showAllChats}
+        />
+      </Drawer>
+    );
   }
 }
 export default withStyles(styles)(Sidebar);

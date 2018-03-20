@@ -34,27 +34,28 @@ const styles = theme => ({
   },
   statusMessage: {
     textAlign: 'center',
-    margin: theme.spacing.unit * 3
-  }
+    margin: theme.spacing.unit * 3,
+  },
 });
 
-const Color = ({ children }) => <span style={{ color: getColor(initials(children)) }}>{children}</span>;
+const Color = ({ children }) => (
+  <span style={{ color: getColor(initials(children)) }}>{children}</span>
+);
 
 const ChatMessage = ({ classes, message, fromMe }) => {
-  const displayName = (u) => {
-    return u.firstName || u.lastName ? `${u.firstName} ${u.lastName}` : u.username
-  }
+  const displayName = u =>
+    (u.firstName || u.lastName ? `${u.firstName} ${u.lastName}` : u.username);
   const sender = displayName(message.sender);
-  
+
   return (
     <React.Fragment>
-      {message.statusMessage &&
+      {message.statusMessage && (
         <Typography variant="body1" className={classes.statusMessage}>
-          <Color>{sender}</Color> {message.content}
-          &nbsp;<span className={classes.messageItem__date}>{moment(message.updatedAt).fromNow()}</span>
+          <Color>{sender}</Color> {message.content} &nbsp;
+          <span className={classes.messageItem__date}>{moment(message.updatedAt).fromNow()}</span>
         </Typography>
-      }
-      {!message.statusMessage &&
+      )}
+      {!message.statusMessage && (
         <div className={classnames(classes.messageItem, fromMe && classes.messageItemMe)}>
           <ChatAvatar name={sender} />
           <Paper className={classnames(classes.messagePaper, fromMe && classes.messagePaperMe)}>
@@ -64,13 +65,12 @@ const ChatMessage = ({ classes, message, fromMe }) => {
             <Typography variant="body1" gutterBottom>
               {message.content}
             </Typography>
-            <div className={classes.messageItem__date}>
-              {moment(message.updatedAt).fromNow()}
-            </div>
+            <div className={classes.messageItem__date}>{moment(message.updatedAt).fromNow()}</div>
           </Paper>
-        </div>}
+        </div>
+      )}
     </React.Fragment>
-  )
+  );
 };
 
 export default withStyles(styles)(ChatMessage);

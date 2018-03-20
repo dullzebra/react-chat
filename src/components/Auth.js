@@ -5,12 +5,12 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import * as style from '../utils/constants';
+import * as style from '../constants/styles';
 
 const styles = theme => ({
   authPaper: {
-    ...style.dialogWidth,    
-    margin: theme.spacing.unit * 3 + 'px auto'
+    ...style.dialogWidth,
+    margin: `${theme.spacing.unit * 3}px auto`,
   },
 });
 
@@ -33,17 +33,17 @@ class Auth extends React.Component {
         <AppBar position="static" color="default">
           <Tabs
             value={value}
-            onChange={this.handleChange}           
-            fullWidth>
+            onChange={this.handleChange}
+            fullWidth
+          >
             <Tab value="login" label="Вход" />
             <Tab value="signup" label="Регистрация" />
           </Tabs>
         </AppBar>
-        {value === 'login' && <LoginForm onSubmit={login}  />}
+        {value === 'login' && <LoginForm onSubmit={login} />}
         {value === 'signup' && <SignupForm onSubmit={signup} />}
       </Paper>
-    )
+    );
   }
-
-};
+}
 export default withStyles(styles)(Auth);

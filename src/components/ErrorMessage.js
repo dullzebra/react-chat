@@ -8,15 +8,15 @@ export default class ErrorMessage extends React.Component {
     open: false,
   };
 
-  handleClose = (event, reason) => {
-    this.setState({ open: false });
-  };
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({ open: true });
     }
   }
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     const { error } = this.props;
@@ -32,16 +32,13 @@ export default class ErrorMessage extends React.Component {
         open={this.state.open}
         autoHideDuration={6000}
         onClose={this.handleClose}
-        message={< span id="message-id" >{error.message}</span >}
-        action={         
-          <IconButton          
-            color="inherit"           
-            onClick={this.handleClose}
-          >
+        message={<span id="message-id">{error.message}</span>}
+        action={
+          <IconButton color="inherit" onClick={this.handleClose}>
             <CloseIcon />
           </IconButton>
         }
       />
-    )
+    );
   }
 }

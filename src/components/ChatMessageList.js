@@ -2,17 +2,18 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import ChatMessage from './ChatMessage';
 
-const styles = theme => ({
+const styles = () => ({
   messageList: {
     position: 'relative',
     flexBasis: '100%',
-  }
+  },
 });
 
 const ChatMessageList = ({ classes, messages, userId }) => (
   <div className={classes.messageList}>
-    {messages.map((item, index) =>
-      <ChatMessage key={index} message={item} fromMe={item.sender._id === userId} />)}
+    {messages.map(item => (
+      <ChatMessage key={item._id} message={item} fromMe={item.sender._id === userId} />
+    ))}
   </div>
 );
 

@@ -8,58 +8,58 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   formContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'column',
-    padding: theme.spacing.unit * 2
-  }
+    padding: theme.spacing.unit * 2,
+  },
 });
 
 class LoginForm extends React.Component {
   state = {
     username: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password: {
       value: '',
-      isValid: true
-    }
+      isValid: true,
+    },
   }
 
 
   handleInputChange = (event) => {
-    event.persist()
-    const { name, value } = event.target 
-    this.setState((prevState) => ({
+    event.persist();
+    const { name, value } = event.target;
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
-        value
-      }
-    }))
+        value,
+      },
+    }));
   }
 
-  handleSubmit = (event) => {   
-    event.preventDefault()
-    const { username, password } = this.state
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { username, password } = this.state;
 
-    this.props.onSubmit(username.value, password.value)
+    this.props.onSubmit(username.value, password.value);
   }
 
   render() {
     const { classes } = this.props;
-    const {username, password} = this.state;
+    const { username, password } = this.state;
     return (
-      <form className={classes.formContainer} onSubmit={this.handleSubmit}>     
+      <form className={classes.formContainer} onSubmit={this.handleSubmit}>
         <TextField
           required
           id="login"
-          label="Логин" 
-          name="username"             
-          autoComplete="username"     
+          label="Логин"
+          name="username"
+          autoComplete="username"
           className={classes.textField}
           value={username.value}
           onChange={this.handleInputChange}
@@ -81,8 +81,7 @@ class LoginForm extends React.Component {
           Войти
         </Button>
       </form>
-    )
+    );
   }
-
-};
+}
 export default withStyles(styles)(LoginForm);

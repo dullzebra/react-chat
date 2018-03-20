@@ -6,51 +6,63 @@ import Chat from './Chat';
 import ChatHeader from './ChatHeader';
 import Error from './ErrorMessage';
 
-//import {chats, messages } from '../mock-data.json'
+// import {chats, messages } from '../mock-data.json'
 
-const styles = theme => ({
+const styles = () => ({
   appFrame: {
     display: 'flex',
     height: '100%',
-  }
+  },
 });
 
 class ChatPage extends React.Component {
   componentDidMount() {
-    const { getAllChats, getMyChats, setActiveChat, socketConnect, mountChat } = this.props;
+    const {
+      getAllChats, getMyChats, setActiveChat, socketConnect, mountChat,
+    } = this.props;
 
     Promise.all([getAllChats(), getMyChats()])
       .then(() => {
-        socketConnect()
+        socketConnect();
       })
       .then(() => {
-        const urlParam = this.props.match.params.id
+        const urlParam = this.props.match.params.id;
         if (urlParam) {
-          setActiveChat(urlParam)
-          mountChat(urlParam)
+          setActiveChat(urlParam);
+          mountChat(urlParam);
         }
-      })
+      });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { mountChat, unmountChat, setActiveChat } = this.props
-    const urlParam = this.props.match.params.id
-    const nextUrlParam = nextProps.match.params.id
+    const { mountChat, unmountChat, setActiveChat } = this.props;
+    const urlParam = this.props.match.params.id;
+    const nextUrlParam = nextProps.match.params.id;
 
     if (nextUrlParam && urlParam !== nextUrlParam) {
-      setActiveChat(nextUrlParam)
-      unmountChat(urlParam)
-      mountChat(nextUrlParam)
+      setActiveChat(nextUrlParam);
+      unmountChat(urlParam);
+      mountChat(nextUrlParam);
     }
   }
 
   render() {
-    const { classes,
-      chats, chats: { active: activeChat },
-      createChat, joinChat, leaveChat, deleteChat,
-      user, editUser, logout,
-      messages, sendMessage,
-      error, isConnected } = this.props
+    const {
+      classes,
+      chats,
+      chats: { active: activeChat },
+      createChat,
+      joinChat,
+      leaveChat,
+      deleteChat,
+      user,
+      editUser,
+      logout,
+      messages,
+      sendMessage,
+      error,
+      isConnected,
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -61,22 +73,21 @@ class ChatPage extends React.Component {
             logout={logout}
             editUser={editUser}
             closeChat={user.isCreator ? deleteChat : leaveChat}
-            isConnected={isConnected} />
-          <Sidebar
-            chats={chats}
-            createChat={createChat} 
-            isConnected={isConnected} />
+            isConnected={isConnected}
+          />
+          <Sidebar chats={chats} createChat={createChat} isConnected={isConnected} />
           <Chat
             user={user}
             activeChat={activeChat}
             joinChat={joinChat}
             messages={messages}
-            sendMessage={sendMessage} 
-            isConnected={isConnected} />
+            sendMessage={sendMessage}
+            isConnected={isConnected}
+          />
         </div>
         <Error error={error} />
       </React.Fragment>
-    )
+    );
   }
 }
 

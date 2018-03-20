@@ -5,22 +5,24 @@ import { ListItem, ListItemText } from 'material-ui/List';
 import { NavLink } from 'react-router-dom';
 import ChatAvatar from './ChatAvatar';
 
-const styles = theme => ({
+const styles = () => ({
   currentChat: {
-    background: 'lightGrey'
-  }
+    background: 'lightGrey',
+  },
 });
 
-const ChatListItem = ({ classes, disabled, id, title, date }) => (
-  <ListItem button
+const ChatListItem = ({
+  classes, disabled, id, title, date,
+}) => (
+  <ListItem
+    button
     disabled={disabled}
-    component={NavLink} to={`/chat/${id}`}
+    component={NavLink}
+    to={`/chat/${id}`}
     activeClassName={classes.currentChat}
   >
     <ChatAvatar name={title} />
-    <ListItemText
-      primary={title}
-      secondary={moment(date).fromNow()} />
+    <ListItemText primary={title} secondary={moment(date).fromNow()} />
   </ListItem>
 );
 

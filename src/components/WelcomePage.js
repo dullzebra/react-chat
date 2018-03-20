@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import * as style from '../utils/constants';
+import * as style from '../constants/styles';
 import WelcomeHeader from './WelcomeHeader';
 import Auth from './Auth';
 import Error from './ErrorMessage';
@@ -16,12 +16,14 @@ const styles = theme => ({
     width: '100%',
     marginTop: style.appBarHeight,
     backgroundColor: theme.palette.background.default,
-  }
+  },
 });
 
-const WelcomePage = ({ classes, signup, login, isAuthenticated, error }) => {
+const WelcomePage = ({
+  classes, signup, login, isAuthenticated, error,
+}) => {
   if (isAuthenticated) {
-    return (<Redirect to="/chat" />)
+    return (<Redirect to="/chat" />);
   }
 
   return (
@@ -34,6 +36,6 @@ const WelcomePage = ({ classes, signup, login, isAuthenticated, error }) => {
       </div>
       <Error error={error} />
     </React.Fragment>
-  )
+  );
 };
 export default withStyles(styles)(WelcomePage);

@@ -15,14 +15,14 @@ const initialState = {
     deleteChat: false,
     editUser: false,
     getChat: false,
-    sockets: false
+    sockets: false,
   },
   errors: {
     auth: null,
-    chat: null
+    chat: null,
   },
-  isConnected: false
-}
+  isConnected: false,
+};
 
 
 export function isFetching(state = initialState.isFetching, action) {
@@ -150,5 +150,5 @@ export function isConnected(state = initialState.isConnected, action) {
 export default combineReducers({
   isFetching,
   error,
-  isConnected
-})
+  isConnected,
+});
