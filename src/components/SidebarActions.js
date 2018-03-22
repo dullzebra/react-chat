@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import GroupIcon from 'material-ui-icons/Group';
@@ -32,6 +33,13 @@ const styles = theme => ({
 });
 
 class SidebarActions extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    createChat: PropTypes.func.isRequired,
+    showAllChats: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
+
   state = {
     isModalOpen: false,
     navValue: 1,

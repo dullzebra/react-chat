@@ -23,19 +23,24 @@ const styles = theme => ({
 
 class SidebarActions extends React.Component {
   state = {
-    title: '',
-  }
+    title: { value: '', isValid: true },
+  };
 
   handleInputChange = (e) => {
     this.setState({ title: e.target.value });
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.title);
+    const { value } = this.state.title;
+    if (!value || !value.trim().length) {
+      this.state.title.isValid = false;
+      return;
+    }
+    this.props.onSubmit(value);
     this.props.onClose();
-    this.setState({ title: '' });
-  }
+    this.setState({ title: { value: '', isValid: true } });
+  };
 
   render() {
     const { classes, open, onClose } = this.props;
@@ -43,29 +48,25 @@ class SidebarActions extends React.Component {
     return (
       <Modal open={open} onClose={onClose}>
         <div className={classes.paper}>
-          <Typography variant="title" gutterBottom>Новый чат</Typography>
+          <Typography variant="title" gutterBottom>
+            Новый чат
+          </Typography>
           <form onSubmit={this.handleSubmit}>
             <TextField
               required
               fullWidth
               label="Название"
               name="title"
-              value={this.state.title}
+              value={this.state.title.value}
               onChange={this.handleInputChange}
+              error={!this.state.title.isValid}
             />
             <div className={classes.footer}>
-              <Button
-                type="submit"
-                variant="raised"
-                color="primary"
-                className={classes.button}
-              >Сохранить
+              <Button type="submit" variant="raised" color="primary" className={classes.button}>
+                Сохранить
               </Button>
-              <Button
-                variant="raised"
-                className={classes.button}
-                onClick={onClose}
-              >Отменить
+              <Button variant="raised" className={classes.button} onClick={onClose}>
+                Отменить
               </Button>
             </div>
           </form>

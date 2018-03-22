@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'moment/locale/ru';
 import { withStyles } from 'material-ui/styles';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
 import ChatHeader from './ChatHeader';
-import Error from './ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
 // import {chats, messages } from '../mock-data.json'
 
@@ -16,6 +17,51 @@ const styles = () => ({
 });
 
 class ChatPage extends React.Component {
+  static propTypes = {
+    getAllChats: PropTypes.func.isRequired,
+    getMyChats: PropTypes.func.isRequired,
+    setActiveChat: PropTypes.func.isRequired,
+    socketConnect: PropTypes.func.isRequired,
+    mountChat: PropTypes.func.isRequired,
+    unmountChat: PropTypes.func.isRequired,
+    createChat: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    leaveChat: PropTypes.func.isRequired,
+    deleteChat: PropTypes.func.isRequired,
+    editUser: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    chats: PropTypes.shape({
+      active: PropTypes.object,
+      allChats: PropTypes.arrayOf(PropTypes.object),
+      myChats: PropTypes.arrayOf(PropTypes.object),
+    }).isRequired,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      chatId: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      sender: PropTypes.object.isRequired,
+      updatedAt: PropTypes.string.isRequired,
+    })).isRequired,
+    error: PropTypes.instanceOf(Error),
+    isConnected: PropTypes.bool.isRequired,
+    match: PropTypes.PropTypes.shape({
+      params: PropTypes.isRequired,
+    }).isRequired,
+  };
+
+  static defaultProps = {
+    error: null,
+  };
+
   componentDidMount() {
     const {
       getAllChats, getMyChats, setActiveChat, socketConnect, mountChat,
@@ -85,7 +131,7 @@ class ChatPage extends React.Component {
             isConnected={isConnected}
           />
         </div>
-        <Error error={error} />
+        <ErrorMessage error={error} />
       </React.Fragment>
     );
   }

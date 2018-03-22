@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -32,6 +33,22 @@ const styles = theme => ({
 });
 
 class Chat extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    messages: PropTypes.array.isRequired,
+    activeChat: PropTypes.object,
+    user: PropTypes.shape({
+      _id: PropTypes.string,
+    }).isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    activeChat: null,
+  };
+
   componentDidMount() {
     this.scrollDownHistory();
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import ChatMessage from './ChatMessage';
 
@@ -16,5 +17,11 @@ const ChatMessageList = ({ classes, messages, userId }) => (
     ))}
   </div>
 );
+
+ChatMessageList.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  userId: PropTypes.string.isRequired,
+  messages: PropTypes.array.isRequired,
+};
 
 export default withStyles(styles)(ChatMessageList);

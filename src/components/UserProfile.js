@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import { withStyles } from 'material-ui/styles';
 import Modal from 'material-ui/Modal';
@@ -23,6 +24,18 @@ const styles = theme => ({
 });
 
 class UserProfile extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    open: PropTypes.bool.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+    }).isRequired,
+  };
+
   state = {
     username: '',
     firstName: '',

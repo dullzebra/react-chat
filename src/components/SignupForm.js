@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -19,6 +20,11 @@ const styles = theme => ({
 });
 
 class SignupForm extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     username: {
       value: '',
@@ -32,7 +38,7 @@ class SignupForm extends React.Component {
       value: '',
       isValid: true,
     },
-  }
+  };
 
   validate = () => {
     const { password, password2 } = this.state;
@@ -50,7 +56,7 @@ class SignupForm extends React.Component {
     });
 
     return isValid;
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
@@ -61,7 +67,7 @@ class SignupForm extends React.Component {
         value,
       },
     }));
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -73,7 +79,7 @@ class SignupForm extends React.Component {
     const { username, password } = this.state;
 
     this.props.onSubmit(username.value, password.value);
-  }
+  };
 
   render() {
     const { classes } = this.props;

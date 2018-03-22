@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
@@ -25,6 +26,16 @@ const styles = theme => ({
 });
 
 class ChatList extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    chats: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      updatedAt: PropTypes.string.isRequired,
+    })).isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
+
   state = {
     filter: '',
   };

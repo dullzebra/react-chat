@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -16,6 +17,22 @@ const styles = () => ({
 });
 
 class ChatTitle extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    closeChat: PropTypes.func.isRequired,
+    activeChat: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+    }),
+    user: PropTypes.shape({
+      isCreator: PropTypes.bool.isRequired,
+    }).isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    activeChat: null,
+  };
+
   state = {
     menuEl: null,
   };

@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -41,10 +42,13 @@ const styles = theme => ({
 const Color = ({ children }) => (
   <span style={{ color: getColor(initials(children)) }}>{children}</span>
 );
+Color.propTypes = { children: PropTypes.string };
+Color.defaultProps = { children: '' };
 
 const ChatMessage = ({ classes, message, fromMe }) => {
   const displayName = u =>
     (u.firstName || u.lastName ? `${u.firstName} ${u.lastName}` : u.username);
+
   const sender = displayName(message.sender);
 
   return (
@@ -71,6 +75,17 @@ const ChatMessage = ({ classes, message, fromMe }) => {
       )}
     </React.Fragment>
   );
+};
+
+ChatMessage.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  fromMe: PropTypes.bool.isRequired,
+  message: PropTypes.shape({
+    chatId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    sender: PropTypes.object.isRequired,
+    updatedAt: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withStyles(styles)(ChatMessage);

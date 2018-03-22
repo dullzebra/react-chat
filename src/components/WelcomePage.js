@@ -1,10 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import * as style from '../constants/styles';
 import WelcomeHeader from './WelcomeHeader';
 import Auth from './Auth';
-import Error from './ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
 const styles = theme => ({
   appFrame: {
@@ -23,7 +24,7 @@ const WelcomePage = ({
   classes, signup, login, isAuthenticated, error,
 }) => {
   if (isAuthenticated) {
-    return (<Redirect to="/chat" />);
+    return <Redirect to="/chat" />;
   }
 
   return (
@@ -34,8 +35,21 @@ const WelcomePage = ({
           <Auth signup={signup} login={login} />
         </main>
       </div>
-      <Error error={error} />
+      <ErrorMessage error={error} />
     </React.Fragment>
   );
 };
+
+WelcomePage.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  signup: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  error: PropTypes.instanceOf(Error),
+};
+
+WelcomePage.defaultProps = {
+  error: null,
+};
+
 export default withStyles(styles)(WelcomePage);

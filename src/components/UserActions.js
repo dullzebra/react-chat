@@ -1,10 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import PersonIcon from 'material-ui-icons/AccountCircle';
 import IconButton from 'material-ui/IconButton';
 import UserProfile from './UserProfile';
 
 class UserActions extends React.Component {
+  static propTypes = {
+    logout: PropTypes.func.isRequired,
+    editUser: PropTypes.func.isRequired,
+    user: PropTypes.object,
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    user: null,
+  };
+
   state = {
     menuEl: null,
     isProfileOpen: false,

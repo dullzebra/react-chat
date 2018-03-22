@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -13,13 +14,19 @@ const styles = theme => ({
 });
 
 class ChatInput extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
+
   state = {
     input: '',
-  }
+  };
 
   handleInputChange = (e) => {
     this.setState({ input: e.target.value });
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +34,7 @@ class ChatInput extends React.Component {
 
     this.props.sendMessage(this.state.input);
     this.setState({ input: '' });
-  }
+  };
 
   render() {
     const { classes, disabled } = this.props;
