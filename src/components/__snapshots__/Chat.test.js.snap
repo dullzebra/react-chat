@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chat /> renders correctly 1`] = `
+<main
+  className="Chat-content-29"
+>
+  <div
+    className="Chat-chatContainer-30"
+  >
+    ChatMessageList
+    <button
+      className="MuiButtonBase-root-48 MuiButton-root-33 MuiButton-raised-38 MuiButton-raisedPrimary-40"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "margin": 16,
+        }
+      }
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label-34"
+      >
+        Хочу к вам
+      </span>
+      <span
+        className="MuiTouchRipple-root-50"
+      />
+    </button>
+  </div>
+</main>
+`;

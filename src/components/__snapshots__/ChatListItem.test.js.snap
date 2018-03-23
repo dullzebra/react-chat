@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatListItem /> renders correctly 1`] = `
+<a
+  aria-current={false}
+  className="MuiButtonBase-root-65 MuiListItem-root-55 MuiListItem-default-58 MuiListItem-gutters-62 MuiListItem-button-63"
+  href="/chat/abc"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  role="button"
+  style={undefined}
+  tabIndex={0}
+>
+  <div
+    className="MuiAvatar-root-67 MuiAvatar-colorDefault-68"
+    style={
+      Object {
+        "backgroundColor": "#ff5722",
+      }
+    }
+  >
+    M
+  </div>
+  <div
+    className="MuiListItemText-root-70"
+  >
+    <h3
+      className="MuiTypography-root-76 MuiTypography-subheading-83 MuiListItemText-primary-73"
+    >
+      Meoooow
+    </h3>
+    <p
+      className="MuiTypography-root-76 MuiTypography-body1-85 MuiTypography-colorTextSecondary-98 MuiListItemText-secondary-74"
+    >
+      3 дня назад
+    </p>
+  </div>
+  <span
+    className="MuiTouchRipple-root-100"
+  />
+</a>
+`;

@@ -1,6 +1,7 @@
 import SocketIOClient from 'socket.io-client';
 import * as types from '../constants';
 import { redirect } from './services';
+import config from '../config';
 
 let socket = null;
 
@@ -27,7 +28,7 @@ export function socketConnect() {
     const { isConnected } = getState().services;
 
     if (!isConnected) {
-      socket = SocketIOClient('ws://localhost:8000', { query: { token } });
+      socket = SocketIOClient(config.SOCKET_URL, { query: { token } });
     }
 
     socket.on('connect', () => {

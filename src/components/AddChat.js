@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Modal from 'material-ui/Modal';
@@ -22,24 +23,32 @@ const styles = theme => ({
 });
 
 class SidebarActions extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+  };
+
   state = {
-    title: { value: '', isValid: true },
+    value: '',
+    isValid: true,
   };
 
   handleInputChange = (e) => {
-    this.setState({ title: e.target.value });
+    this.setState({ value: e.target.value, isValid: true });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { value } = this.state.title;
+    const { value } = this.state;
     if (!value || !value.trim().length) {
-      this.state.title.isValid = false;
+      this.setState({ value, isValid: false });
       return;
     }
     this.props.onSubmit(value);
     this.props.onClose();
-    this.setState({ title: { value: '', isValid: true } });
+    this.setState({ value: '', isValid: true });
   };
 
   render() {
@@ -57,9 +66,9 @@ class SidebarActions extends React.Component {
               fullWidth
               label="Название"
               name="title"
-              value={this.state.title.value}
+              value={this.state.value}
               onChange={this.handleInputChange}
-              error={!this.state.title.isValid}
+              error={!this.state.isValid}
             />
             <div className={classes.footer}>
               <Button type="submit" variant="raised" color="primary" className={classes.button}>
