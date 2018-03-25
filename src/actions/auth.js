@@ -1,42 +1,30 @@
-import fetch from 'isomorphic-fetch';
-import * as types from '../constants'
+import http from '../utils/api';
+import * as types from '../constants';
+
 
 
 export function signup(username, password) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services
+    if (isFetching.signup) {
+      return Promise.resolve()
+    }
+
     dispatch({
       type: types.SIGNUP_REQUEST
     })
 
-    return fetch('http://localhost:8000/v1/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        username,
-        password
-      })
-    })
-      .then(response => response.json())
-      .then(json => {
-        if (json.success) {
-          return json
-        } else {
-          throw new Error(json.message)
-        }
-      })
-      .then(json => {
-        if (!json.token) {
+    return http('signup', undefined, { username, password }, { method: 'POST' })
+      .then(data => {
+        if (!data.token) {
           throw new Error('Token has not been provided')
         }
 
-        localStorage.setItem('token', json.token)
+        localStorage.setItem('token', data.token)
 
         dispatch({
           type: types.SIGNUP_SUCCESS,
-          payload: json
+          payload: data
         })
       })
       .catch(reason =>
@@ -48,40 +36,27 @@ export function signup(username, password) {
 }
 
 export function login(username, password) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services
+    if (isFetching.login) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: types.LOGIN_REQUEST
     })
 
-    return fetch('http://localhost:8000/v1/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        username,
-        password
-      })
-    })
-      .then(response => response.json())
-      .then(json => {
-        if (json.success) {
-          return json
-        } else {
-          throw new Error(json.message)
-        }
-      })
-      .then(json => {
-        if (!json.token) {
+    return http('login', undefined, { username, password }, { method: 'POST' })
+      .then(data => {
+        if (!data.token) {
           throw new Error('Token has not been provided')
         }
 
-        localStorage.setItem('token', json.token)
+        localStorage.setItem('token', data.token)
 
         dispatch({
           type: types.LOGIN_SUCCESS,
-          payload: json
+          payload: data
         })
       })
       .catch(reason =>
@@ -98,22 +73,19 @@ export function logout() {
       type: types.LOGOUT_REQUEST
     })
 
-    return fetch('http://localhost:8000/v1/logout', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(json => {
-        if (json.success) {
-          dispatch({
-            type: types.LOGOUT_SUCCESS
-          })
-          delete localStorage.token
-        } else {
-          throw new Error(json.message)
-        }
+    return http('logout')
+      .then(data => {
+        dispatch({
+          type: types.LOGOUT_SUCCESS
+        })
+        localStorage.removeItem('token');
+        dispatch({
+          type: types.UNSET_ACTIVE_CHAT
+        })
+        dispatch({
+          type: types.SHOW_ALL_CHATS,
+          payload: true
+        })
       })
       .catch(reason =>
         dispatch({
@@ -124,36 +96,25 @@ export function logout() {
 }
 
 export function receiveAuth() {
-  return (dispatch, getState) => {
+  return (dispatch, getState) => {    
+    const { isFetching } = getState().services
+    if (isFetching.receiveAuth) {
+      return Promise.resolve();
+    }
+
     const { token } = getState().auth
-   
     if (!token) {
       return dispatch({
         type: types.RECEIVE_AUTH_FAILURE
       })
     }
 
-    return fetch('http://localhost:8000/v1/users/me', {       
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }      
-    })
-      .then(response => response.json())
-      .then(json => {
-        if (json.success) {
-          return json
-        } else {
-          throw new Error(json.message)
-        }
-      })
-      .then(json => 
+    return http('users/me', token)
+      .then(data =>
         dispatch({
           type: types.RECEIVE_AUTH_SUCCESS,
-          payload: json
-        })
-      )
+          payload: data
+        }))
       .catch(reason =>
         dispatch({
           type: types.RECEIVE_AUTH_FAILURE,
@@ -161,3 +122,4 @@ export function receiveAuth() {
         }))
   }
 }
+

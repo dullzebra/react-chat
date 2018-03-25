@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 
 const styles = theme => ({
-  inputPaper: {  
+  inputPaper: {
     position: 'sticky',
     bottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 3,
@@ -13,16 +13,37 @@ const styles = theme => ({
 });
 
 class ChatInput extends React.Component {
+  state = {
+    input: ''
+  }
+
+  handleInputChange = (e) => {
+    this.setState({input: e.target.value})
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();   
+    if (!this.state.input.trim().length) return;
+
+    this.props.sendMessage(this.state.input);
+    this.setState({input: ''})
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, disabled } = this.props;
     return (
       <Paper className={classes.inputPaper} elevation={4}>
+        <form onSubmit={this.handleSubmit}>
         <TextField
           fullWidth
-          id="inputMessage"
+          name="inputMessage"
           placeholder="Напишите что-нибудь еще"
-          type="text"         
+          type="text"
+          value={this.state.input}
+          onChange={this.handleInputChange}
+          disabled={disabled}
         />
+        </form>
       </Paper>
     )
   }

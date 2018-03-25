@@ -1,29 +1,34 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 import * as style from '../utils/constants';
-import ChatMessage from './ChatMessage';
+import ChatMessageList from './ChatMessageList';
 import ChatInput from './ChatInput';
 
 const styles = theme => ({
   content: {
     flexGrow: 1,
-    display: 'flex',      
+    display: 'flex',
     marginTop: style.appBarHeight,
     backgroundColor: theme.palette.background.default,
   },
   chatContainer: {
     flexGrow: 1,
     display: 'flex',
-    flexDirection: 'column',   
+    flexDirection: 'column',
     overflow: 'auto'
   },
   messageList: {
-    flexBasis: '100%'
+    position: 'relative',
+    flexBasis: '100%',
+
   },
-  infoItem: {
-    margin: '.2em',
-    fontSize: '.8em',
-    textAlign: 'center'
+  chatIntro: {
+    flexBasis: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
@@ -37,33 +42,48 @@ class Chat extends React.Component {
   }
 
   scrollDownHistory() {
-    const messagesContainer = this.refs.messagesContainer    
+    const messagesContainer = this.refs.messagesContainer
     if (messagesContainer) {
       messagesContainer.scrollTop = messagesContainer.scrollHeight
     }
   }
 
+  handleSend = (content) => {
+    this.props.sendMessage(content);
+  }
+
   render() {
-    const { classes, messages } = this.props;
+    const { classes, user, activeChat, joinChat, messages, isConnected } = this.props;
+
+    const msgPanel = messages.length ? (
+      <ChatMessageList messages={messages} userId={user._id} />
+    ) : (
+        <div className={classes.chatIntro}>
+          <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
+        </div>
+      );
+
+    const footer = user.isChatMember ? (
+      <ChatInput  disabled={!isConnected} sendMessage={this.handleSend} />
+    ) : (
+        <Button
+          disabled={!isConnected}
+          onClick={joinChat}
+          variant="raised" color="primary" style={{ margin: 16 }}>
+          Хочу к вам</Button>
+      );
+
+    const unactivePanel = (<div className={classes.chatIntro}>
+      <Typography variant="subheading">Выбери чат из списка слева или создай свой</Typography>
+    </div>);
 
     return (
       <main className={classes.content}>
         <div ref="messagesContainer" className={classes.chatContainer}>
-          <div className={classes.messageList}>
-           {messages && messages.map((item, index) =>
-            <ChatMessage key={index} {...item} />
-          )}
-          {/*<div className={classes.infoItem}>
-            Username присоединился
-            <div>10 мин назад</div>
-          </div>
-          */}
-          </div>
-         <ChatInput /> 
+          {activeChat ? <React.Fragment>{msgPanel}{footer}</React.Fragment> : unactivePanel}
         </div>
       </main>
     )
   }
-
 };
 export default withStyles(styles)(Chat);

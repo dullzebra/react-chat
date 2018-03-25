@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import * as style from '../utils/constants';
 import WelcomeHeader from './WelcomeHeader';
 import Auth from './Auth';
+import Error from './ErrorMessage';
 
 const styles = theme => ({
   appFrame: {
@@ -18,18 +19,21 @@ const styles = theme => ({
   }
 });
 
-const WelcomePage = ({ classes, signup, login, isAuthenticated }) => {
+const WelcomePage = ({ classes, signup, login, isAuthenticated, error }) => {
   if (isAuthenticated) {
     return (<Redirect to="/chat" />)
   }
 
   return (
-    <div className={classes.appFrame}>
-      <WelcomeHeader />
-      <main className={classes.content}>
-        <Auth signup={signup} login={login} />
-      </main>
-    </div>
+    <React.Fragment>
+      <div className={classes.appFrame}>
+        <WelcomeHeader />
+        <main className={classes.content}>
+          <Auth signup={signup} login={login} />
+        </main>
+      </div>
+      <Error error={error} />
+    </React.Fragment>
   )
 };
 export default withStyles(styles)(WelcomePage);

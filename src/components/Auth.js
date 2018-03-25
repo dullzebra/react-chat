@@ -9,7 +9,7 @@ import * as style from '../utils/constants';
 
 const styles = theme => ({
   authPaper: {
-    ...style.authWidth,    
+    ...style.dialogWidth,    
     margin: theme.spacing.unit * 3 + 'px auto'
   },
 });

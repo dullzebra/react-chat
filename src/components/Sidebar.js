@@ -1,9 +1,7 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import Divider from 'material-ui/Divider';
 import ChatList from './ChatList';
-import SidebarFilter from './SidebarFilter';
 import SidebarActions from './SidebarActions';
 import * as style from '../utils/constants';
 
@@ -15,14 +13,27 @@ const styles = theme => ({
   }
 });
 
+class Sidebar extends React.Component {
+  state = {
+    isAllChatsActive: true
+  }
 
-const Sidebar = ({ classes, chats }) => (
-  <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
-    <SidebarFilter />
-    <Divider />
-    <ChatList chats={chats} />
-    <SidebarActions />
-  </Drawer>
-);
+  showAllChats = (bool) => {
+    this.setState({ isAllChatsActive: bool })
+  }
 
+  render() {
+    const { classes, chats, createChat, isConnected } = this.props;
+
+    return (
+      <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
+        <ChatList
+          disabled={!isConnected}
+          chats={this.state.isAllChatsActive ? chats.allChats : chats.myChats} />
+        <SidebarActions
+          disabled={!isConnected}
+          createChat={createChat} showAllChats={this.showAllChats} />
+      </Drawer>)
+  }
+}
 export default withStyles(styles)(Sidebar);
