@@ -29,23 +29,21 @@ class UserProfile extends React.Component {
     open: PropTypes.bool.isRequired,
     onSave: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-    }).isRequired,
   };
+
+  static getDerivedStateFromProps(nextProps) {
+    const { username, firstName, lastName } = nextProps.user;
+    if (username !== undefined) {
+      return { username, firstName, lastName };
+    }
+    return null;
+  }
 
   state = {
     username: '',
     firstName: '',
     lastName: '',
   };
-
-  componentWillReceiveProps(nextProps) {
-    const { username, firstName, lastName } = nextProps.user;
-    this.setState({ username, firstName, lastName });
-  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps.open !== this.props.open || !isEqual(nextState, this.state);

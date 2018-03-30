@@ -20,10 +20,7 @@ class ChatPage extends React.Component {
   static propTypes = {
     getAllChats: PropTypes.func.isRequired,
     getMyChats: PropTypes.func.isRequired,
-    setActiveChat: PropTypes.func.isRequired,
     socketConnect: PropTypes.func.isRequired,
-    mountChat: PropTypes.func.isRequired,
-    unmountChat: PropTypes.func.isRequired,
     createChat: PropTypes.func.isRequired,
     joinChat: PropTypes.func.isRequired,
     leaveChat: PropTypes.func.isRequired,
@@ -53,43 +50,42 @@ class ChatPage extends React.Component {
     })).isRequired,
     error: PropTypes.instanceOf(Error),
     isConnected: PropTypes.bool.isRequired,
-    match: PropTypes.PropTypes.shape({
-      params: PropTypes.isRequired,
-    }).isRequired,
   };
 
   static defaultProps = {
     error: null,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { urlParam, init } = prevState;
+    const nextUrlParam = nextProps.match.params.id;
+    const { mountChat, unmountChat, setActiveChat } = nextProps;
+
+    if (init && nextUrlParam && urlParam !== nextUrlParam) {
+      setActiveChat(nextUrlParam);
+      unmountChat(urlParam);
+      mountChat(nextUrlParam);
+
+      return {
+        urlParam: nextUrlParam,
+      };
+    }
+
+    return null;
+  }
+
+  state = { urlParam: null, init: false };
+
   componentDidMount() {
-    const {
-      getAllChats, getMyChats, setActiveChat, socketConnect, mountChat,
-    } = this.props;
+    const { getAllChats, getMyChats, socketConnect } = this.props;
 
     Promise.all([getAllChats(), getMyChats()])
       .then(() => {
         socketConnect();
       })
       .then(() => {
-        const urlParam = this.props.match.params.id;
-        if (urlParam) {
-          setActiveChat(urlParam);
-          mountChat(urlParam);
-        }
+        this.setState({ init: true });
       });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { mountChat, unmountChat, setActiveChat } = this.props;
-    const urlParam = this.props.match.params.id;
-    const nextUrlParam = nextProps.match.params.id;
-
-    if (nextUrlParam && urlParam !== nextUrlParam) {
-      setActiveChat(nextUrlParam);
-      unmountChat(urlParam);
-      mountChat(nextUrlParam);
-    }
   }
 
   render() {

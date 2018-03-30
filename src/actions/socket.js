@@ -83,7 +83,7 @@ export function socketConnect() {
 export function sendMessage(content) {
   return (dispatch, getState) => {
     if (!socket) {
-      dispatch(socketConnectionMissing());
+      return dispatch(socketConnectionMissing());
     }
     const chatId = getState().chat.currentId;
     socket.emit('send-message', { chatId, content }, () =>
@@ -96,7 +96,7 @@ export function sendMessage(content) {
 export function mountChat(chatId) {
   return (dispatch) => {
     if (!socket) {
-      dispatch(socketConnectionMissing());
+      return dispatch(socketConnectionMissing());
     }
     socket.emit('mount-chat', chatId);
     dispatch({
@@ -108,7 +108,7 @@ export function mountChat(chatId) {
 export function unmountChat(chatId) {
   return (dispatch) => {
     if (!socket) {
-      dispatch(socketConnectionMissing());
+      return dispatch(socketConnectionMissing());
     }
     socket.emit('unmount-chat', chatId);
     dispatch({

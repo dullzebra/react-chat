@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Sidebar /> renders disabled buttons 1`] = `
+Array [
+  <div
+    className="MuiBottomNavigation-root-52 SidebarActions-panel-48"
+    disabled={true}
+>
+    <button
+        className="MuiButtonBase-root-60 MuiBottomNavigationAction-root-53"
+        disabled={undefined}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+    >
+        <span
+            className="MuiBottomNavigationAction-wrapper-56"
+        >
+            <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-62"
+                color={undefined}
+                focusable="false"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+            </svg>
+            <span
+                className="MuiBottomNavigationAction-label-57"
+            >
+                Мои чаты
+            </span>
+        </span>
+        <span
+            className="MuiTouchRipple-root-69"
+        />
+    </button>
+    <button
+        className="MuiButtonBase-root-60 MuiBottomNavigationAction-root-53 MuiBottomNavigationAction-selected-54"
+        disabled={undefined}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+    >
+        <span
+            className="MuiBottomNavigationAction-wrapper-56"
+        >
+            <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-62"
+                color={undefined}
+                focusable="false"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                />
+            </svg>
+            <span
+                className="MuiBottomNavigationAction-label-57 MuiBottomNavigationAction-selectedLabel-58"
+            >
+                Все чаты
+            </span>
+        </span>
+        <span
+            className="MuiTouchRipple-root-69"
+        />
+    </button>
+</div>,
+  <button
+    className="MuiButtonBase-root-60 MuiButtonBase-disabled-61 MuiButton-root-76 MuiButton-raised-81 MuiButton-fab-86 MuiButton-raisedPrimary-83 MuiButton-disabled-85 SidebarActions-addChat-49"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={-1}
+    type="button"
+>
+    <span
+        className="MuiButton-label-77"
+    >
+        <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-62 MuiSvgIcon-fontSize-68"
+            color={undefined}
+            focusable="false"
+            viewBox="0 0 24 24"
+        >
+            <path
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+        </svg>
+    </span>
+</button>,
+]
+`;

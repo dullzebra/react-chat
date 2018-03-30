@@ -20,8 +20,12 @@ const ChatMessageList = ({ classes, messages, userId }) => (
 
 ChatMessageList.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.string,
   messages: PropTypes.array.isRequired,
+};
+
+ChatMessageList.defaultProps = {
+  userId: null,
 };
 
 export default withStyles(styles)(ChatMessageList);

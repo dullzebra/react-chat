@@ -5,6 +5,7 @@ module.exports = {
     browser: true,
   },
   rules: {
+    'react/no-unused-state': 0,
     'react/forbid-prop-types': 0,
     'no-mixed-operators': 0,
     'no-underscore-dangle': 0,

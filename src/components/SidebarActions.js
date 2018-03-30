@@ -66,6 +66,7 @@ class SidebarActions extends React.Component {
       <React.Fragment>
         <BottomNavigation
           showLabels
+          disabled={disabled}
           className={classes.panel}
           value={this.state.navValue}
           onChange={this.handleNav}

@@ -13,15 +13,16 @@ export default class ErrorMessage extends React.Component {
     error: null,
   };
 
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.error) {
+      return { open: true };
+    }
+    return null;
+  }
+
   state = {
     open: false,
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.error) {
-      this.setState({ open: true });
-    }
-  }
 
   handleClose = () => {
     this.setState({ open: false });
