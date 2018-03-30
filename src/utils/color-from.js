@@ -11,18 +11,18 @@ import deepOrange from 'material-ui/colors/deepOrange';
 import teal from 'material-ui/colors/teal';
 import brown from 'material-ui/colors/brown';
 
-const colors = [red, pink, orange,  purple, cyan,  deepOrange, green, blue, lime, amber, teal, brown]
+const colors = [red, pink, orange, purple, cyan, deepOrange, green, blue, lime, amber, teal, brown];
 
 export default function colorFrom(string) {
   try {
     const index = string.toString().split('')
       .map(char => char.charCodeAt())
       .reduce((sum, next) => sum + next);
-   
+
     const colorIndex = index % colors.length;
     return colors[colorIndex][500];
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return colors[blue][500];
   }
 }

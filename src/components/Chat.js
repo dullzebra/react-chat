@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import * as style from '../utils/constants';
+import * as style from '../constants/styles';
 import ChatMessageList from './ChatMessageList';
 import ChatInput from './ChatInput';
 
@@ -17,73 +18,107 @@ const styles = theme => ({
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'auto'
+    overflow: 'auto',
   },
   messageList: {
     position: 'relative',
     flexBasis: '100%',
-
   },
   chatIntro: {
     flexBasis: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 class Chat extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    messages: PropTypes.array.isRequired,
+    activeChat: PropTypes.object,
+    user: PropTypes.shape({
+      _id: PropTypes.string,
+    }).isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    activeChat: null,
+  };
+
   componentDidMount() {
-    this.scrollDownHistory()
+    this.scrollDownHistory();
   }
 
   componentDidUpdate() {
-    this.scrollDownHistory()
+    this.scrollDownHistory();
   }
 
   scrollDownHistory() {
-    const messagesContainer = this.refs.messagesContainer
-    if (messagesContainer) {
-      messagesContainer.scrollTop = messagesContainer.scrollHeight
+    if (this.messagesContainer) {
+      this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
     }
   }
 
   handleSend = (content) => {
     this.props.sendMessage(content);
-  }
+  };
 
   render() {
-    const { classes, user, activeChat, joinChat, messages, isConnected } = this.props;
+    const {
+      classes, user, activeChat, joinChat, messages, isConnected,
+    } = this.props;
 
     const msgPanel = messages.length ? (
       <ChatMessageList messages={messages} userId={user._id} />
     ) : (
-        <div className={classes.chatIntro}>
-          <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
-        </div>
-      );
+      <div className={classes.chatIntro}>
+        <Typography variant="subheading">В чате пока тихо... Будь первым!</Typography>
+      </div>
+    );
 
     const footer = user.isChatMember ? (
-      <ChatInput  disabled={!isConnected} sendMessage={this.handleSend} />
+      <ChatInput disabled={!isConnected} sendMessage={this.handleSend} />
     ) : (
-        <Button
-          disabled={!isConnected}
-          onClick={joinChat}
-          variant="raised" color="primary" style={{ margin: 16 }}>
-          Хочу к вам</Button>
-      );
+      <Button
+        disabled={!isConnected}
+        onClick={joinChat}
+        variant="raised"
+        color="primary"
+        style={{ margin: 16 }}
+      >
+        Хочу к вам
+      </Button>
+    );
 
-    const unactivePanel = (<div className={classes.chatIntro}>
-      <Typography variant="subheading">Выбери чат из списка слева или создай свой</Typography>
-    </div>);
+    const unactivePanel = (
+      <div className={classes.chatIntro}>
+        <Typography variant="subheading">Выбери чат из списка слева или создай свой</Typography>
+      </div>
+    );
 
     return (
       <main className={classes.content}>
-        <div ref="messagesContainer" className={classes.chatContainer}>
-          {activeChat ? <React.Fragment>{msgPanel}{footer}</React.Fragment> : unactivePanel}
+        <div
+          ref={(c) => {
+            this.messagesContainer = c;
+          }}
+          className={classes.chatContainer}
+        >
+          {activeChat ? (
+            <React.Fragment>
+              {msgPanel}
+              {footer}
+            </React.Fragment>
+          ) : (
+            unactivePanel
+          )}
         </div>
       </main>
-    )
+    );
   }
-};
+}
 export default withStyles(styles)(Chat);

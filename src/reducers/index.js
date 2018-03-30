@@ -6,23 +6,24 @@ import services from './services';
 export default combineReducers({
   auth,
   chat,
-  services
+  services,
 });
 
-export const isMember = (user, chat) => {
+export const isMember = (user, activeChat) => {
   try {
-    return chat.members.some(member => (member._id === user._id))
+    return activeChat.members.some(member => member._id === user._id);
   } catch (e) {
-    return false
+    return false;
   }
 };
 
-export const isCreator = (user, chat) => {
+export const isCreator = (user, activeChat) => {
   try {
-    return user._id === chat.creator._id;
+    return user._id === activeChat.creator._id;
   } catch (e) {
-    return false
+    return false;
   }
 };
 
-export const isChatMember = (user, chat) => isCreator(user, chat) || isMember(user, chat);
+export const isChatMember = (user, activeChat) =>
+  isCreator(user, activeChat) || isMember(user, activeChat);

@@ -1,20 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import * as style from '../utils/constants';
+import * as style from '../constants/styles';
 
 const styles = theme => ({
   authPaper: {
-    ...style.dialogWidth,    
-    margin: theme.spacing.unit * 3 + 'px auto'
+    ...style.dialogWidth,
+    margin: `${theme.spacing.unit * 3}px auto`,
   },
 });
 
 class Auth extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    login: PropTypes.func.isRequired,
+    signup: PropTypes.func.isRequired,
+  };
+
   state = {
     value: 'login',
   };
@@ -23,7 +30,6 @@ class Auth extends React.Component {
     this.setState({ value });
   };
 
-
   render() {
     const { classes, login, signup } = this.props;
     const { value } = this.state;
@@ -31,19 +37,15 @@ class Auth extends React.Component {
     return (
       <Paper className={classes.authPaper} elevation={4}>
         <AppBar position="static" color="default">
-          <Tabs
-            value={value}
-            onChange={this.handleChange}           
-            fullWidth>
+          <Tabs value={value} onChange={this.handleChange} fullWidth>
             <Tab value="login" label="Вход" />
             <Tab value="signup" label="Регистрация" />
           </Tabs>
         </AppBar>
-        {value === 'login' && <LoginForm onSubmit={login}  />}
+        {value === 'login' && <LoginForm onSubmit={login} />}
         {value === 'signup' && <SignupForm onSubmit={signup} />}
       </Paper>
-    )
+    );
   }
-
-};
+}
 export default withStyles(styles)(Auth);

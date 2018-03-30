@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -14,72 +15,77 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'column',
-    padding: theme.spacing.unit * 2
-  }
+    padding: theme.spacing.unit * 2,
+  },
 });
 
 class SignupForm extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     username: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password2: {
       value: '',
-      isValid: true
-    }
-  }
+      isValid: true,
+    },
+  };
 
   validate = () => {
-    const { password, password2 } = this.state
-    const isValid = password.value === password2.value
+    const { password, password2 } = this.state;
+    const isValid = password.value === password2.value;
 
     this.setState({
       password: {
         ...password,
-        isValid
+        isValid,
       },
       password2: {
         ...password2,
-        isValid
-      }
-    })
+        isValid,
+      },
+    });
 
-    return isValid
-  }
+    return isValid;
+  };
 
   handleInputChange = (event) => {
-    event.persist()
-    const { name, value } = event.target
-    this.setState((prevState) => ({
+    event.persist();
+    const { name, value } = event.target;
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
-        value
-      }
-    }))
-  }
+        value,
+      },
+    }));
+  };
 
   handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (!this.validate()) {
       return;
     }
 
-    const { username, password } = this.state
+    const { username, password } = this.state;
 
-    this.props.onSubmit(username.value, password.value)
-  }
+    this.props.onSubmit(username.value, password.value);
+  };
 
   render() {
     const { classes } = this.props;
     const { username, password, password2 } = this.state;
     return (
-      <form className={classes.formContainer} onSubmit={this.handleSubmit}>     
+      <form className={classes.formContainer} onSubmit={this.handleSubmit}>
         <TextField
           required
           id="login"
@@ -119,8 +125,7 @@ class SignupForm extends React.Component {
           Зарегистрироваться
         </Button>
       </form>
-    )
+    );
   }
-
-};
+}
 export default withStyles(styles)(SignupForm);

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Sidebar /> renders correctly 1`] = `
+<div
+  className="MuiDrawer-docked-41"
+>
+  <div
+    className="MuiPaper-root-52 MuiPaper-shadow0-54 MuiDrawer-paper-42 Sidebar-drawerPaper-40 MuiDrawer-paperAnchorLeft-43 MuiDrawer-paperAnchorDockedLeft-47"
+  >
+    ChatList
+    SidebarActions
+  </div>
+</div>
+`;
