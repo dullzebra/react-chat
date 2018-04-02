@@ -1,6 +1,6 @@
 import * as types from '../constants';
 
-const token = localStorage.getItem('token');
+const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : '';
 
 const initialState = {
   isAuthenticated: !!token,

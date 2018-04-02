@@ -11,7 +11,7 @@ const store = configureStore();
 const rootEl = document.getElementById('root');
 
 const render = (Component) => {
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <Provider store={store}>
       <Component />
     </Provider>,
